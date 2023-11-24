@@ -1,0 +1,40 @@
+{
+    "name": "edlugz/sasapay",
+    "description": "This package provides you with a simple tool to make requests to Sasapay APIs so that you can focus on the development of your awesome applications instead of all the set up involved.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eddy Lugaye",
+            "email": "eddy.lugaye@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/edlugz/sasapay",
+    "keywords": ["Laravel", "SasaPay"],
+    "require": {
+        "illuminate/support": "^10.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.1",
+        "orchestra/testbench": "~7"
+    },
+    "autoload": {
+        "psr-4": {
+            "EdLugz\\SasaPay\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EdLugz\\SasaPay\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EdLugz\\SasaPay\\SasaPayServiceProvider"
+            ],
+            "aliases": {
+                "SasaPay": "EdLugz\\SasaPay\\Facades\\SasaPay"
+            }
+        }
+    }
+}
