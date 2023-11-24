@@ -15,17 +15,108 @@ Via Composer
 composer require edlugz/sasapay
 ```
 
+## Register Service Provider
+
+Add service provider to config/app.php in providers section
+
+```bash
+EdLugz\SasaPay\SasaPayServiceProvider::class,
+```
+
+## Register Facade
+
+Register package facade in config/app.php in aliases section
+
+```bash
+EdLugz\SasaPay\Facades\SasaPay::class,
+```
+
+## Publish Configuration File
+
+```bash
+php artisan vendor:publish --provider="EdLugz\SasaPay\SasaPayServiceProvider" --tag="config"
+```
+
+Fill in all the details you will be requiring for your application. Here are the env variables for quick copy paste.
+
+```bash
+SASAPAY_CLIENT_ID=
+SASAPAY_CLIENT_SECRET=
+SASAPAY_MERCHANT_CODE=
+SASAPAY_BASE_URL=
+```
+
 ## Usage
+
+Using the facade
+
+Onboarding - Personal
+```bash
+SasaPay::personalOnboarding()->signUp($firstName, $middleName = '', $lastName, $email, $countryCode, $mobileNumber, $documentNumber, $documentType);
+SasaPay::personalOnboarding()->confirm($id, $otp);
+SasaPay::personalOnboarding()->kyc($customerMobileNumber, $passportSizePhoto, $documentImageFront, $documentImageBackdocumentImageBack);
+```
+Onboarding - Business
+```bash
+SasaPay::businessOnboarding()->signUp($firstName, $middleName, $lastName, $countryCode, $mobileNumber, $documentNumber, $documentType, $documentType);
+SasaPay::businessOnboarding()->confirm($id, $otp);
+SasaPay::businessOnboarding()->kyc($requestId, $businessKraPin, $businessRegistrationCertificate, $directorIdCardFront, $directorIdCardBack, $directorKraPin);
+```
+Customers 
+```bash
+SasaPay::customer()->getCustomers();
+SasaPay::customer()->customerDetails($accountNumber);
+```
+Fund Account - send stk push to mobile number 
+```bash
+SasaPay::fund()->fundRequest($networkCode, $mobileNumber, $receiverAccountNumber, $amount, $transactionDesc);
+SasaPay::fund()->processRequest($receiverAccountNumber, $checkoutRequestId, $verificationCode);
+SasaPay::fund()->fundingResult($data);
+```
+Send Money -  to mobile wallets and bank accounts
+```bash
+SasaPay::sendMoney()->transfer($transactionDesc, $senderNumber, $amount, $reason, $transactionFee = 0, $channel, $receiverNumber);
+SasaPay::sendMoney()->sendMoneyResult($data);
+```
+Lipa - to paybills and till numbers
+```bash
+SasaPay::businessPayment()->lipa($amount, $senderAccountNumber, $receiverMerchantCode, $accountReference, $transactionFee = 0, $billerType, $networkCode, $reason);
+SasaPay::businessPayment()->businessPaymentResult($data);
+```
+Utility - for airtime, nairobi water, dstv, gotv
+```bash
+SasaPay::utility()->payUtility($amount, $payerAccountNumber, $accountNumber, $transactionFee = 0);
+SasaPay::utility()->billQuery($serviceCode, $customerMobile, $accountNumber);
+SasaPay::utility()->utilityResult($data);
+```
+Statement - fetch transaction statement
+```bash
+SasaPay::statement()->fetch($accountNumber);
+```
+Transaction - verify and check status
+```bash
+SasaPay::transaction()->check($checkoutRequestId, $merchantTransactionReference, $transactionCode);
+SasaPay::transaction()->verify($transactionCode);
+```
+Balance - check merchant balance
+```bash
+SasaPay::balance()->check();
+```
+Supplementary functions - channel codes, countries, sub-regions, industries, sub-industries, business types, account product types, agent locations
+```bash
+SasaPay::supplementary()->channelCodes();
+SasaPay::supplementary()->countries();
+SasaPay::supplementary()->subRegions();
+SasaPay::supplementary()->industries();
+SasaPay::supplementary()->subIndustries();
+SasaPay::supplementary()->businessTypes();
+SasaPay::supplementary()->accountProductTypes();
+SasaPay::supplementary()->agentLocations();
+```
 
 ## Change log
 
 Please see the [changelog](changelog.md) for more information on what has changed recently.
-
-## Testing
-
-```bash
-composer test
-```
 
 ## Contributing
 
