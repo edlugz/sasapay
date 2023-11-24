@@ -63,8 +63,8 @@ return [
     */
 
     'onboarding_result_url' => [
-        'personal' => 'https://webhook.site/d434ef03-08cd-4cb6-aa9c-a8c9d08ccb31',
-        'business' => 'https://webhook.site/d434ef03-08cd-4cb6-aa9c-a8c9d08ccb31'
+        'personal' => env('SASAPAY_PERSONAL_ONBOARDING_RESULT_URL', ''),
+        'business' => env('SASAPAY_BUSINESS_ONBOARDING_RESULT_URL', ''),
     ],
 
     /*
@@ -78,10 +78,10 @@ return [
     */
 
     'result_url' => [
-        'funding' => 'https://webhook.site/d434ef03-08cd-4cb6-aa9c-a8c9d08ccb31',
-        'send_money' => 'https://webhook.site/d434ef03-08cd-4cb6-aa9c-a8c9d08ccb31',
-        'business_payment' => 'https://webhook.site/d434ef03-08cd-4cb6-aa9c-a8c9d08ccb31',
-        'utility_payment' => 'https://webhook.site/d434ef03-08cd-4cb6-aa9c-a8c9d08ccb31'
+        'funding' => env('SASAPAY_FUNDING_RESULT_URL', ''),
+        'send_money' => env('SASAPAY_SEND_MONEY_RESULT_URL', ''),
+        'business_payment' => env('SASAPAY_BUSINESS_PAYMENT_RESULT_URL', ''),
+        'utility_payment' => env('SASAPAY_UTILITY_PAYMENT_RESULT_URL', ''),
     ],
 
     /*
