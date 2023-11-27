@@ -8,7 +8,7 @@ return [
    |--------------------------------------------------------------------------
    |
    | This value is the consumer key provided for your developer application.
-   | The package needs this to make requests to the Safricom APIs.
+   | The package needs this to make requests to the SasaPay APIs.
    |
    */
 
@@ -20,7 +20,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This value is the consumer secret provided for your developer application.
-    | The package needs this to make requests to the Safricom APIs.
+    | The package needs this to make requests to the SasaPay APIs.
     |
     */
 
@@ -32,7 +32,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This value is the consumer secret provided for your developer application.
-    | The package needs this to make requests to the Safricom APIs.
+    | The package needs this to make requests to the SasaPay APIs.
     |
     */
 
@@ -55,10 +55,8 @@ return [
     | Onboarding URLs
     |--------------------------------------------------------------------------
     |
-    | If you will be using the C2B API you can set the URLs that will handle the
-    | validation and confirmation here. This will enable you to run the
-    | artisan command to automatically register them. You can use a route name or
-    | specific URL since we can not use the route() helper here
+    | Here you can set the onboarding URLs that will handle the results from each of the
+    | APIs from Sasapay
     |
     */
 
