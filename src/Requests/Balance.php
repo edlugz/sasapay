@@ -11,7 +11,7 @@ class Balance extends SasaPayClient
      *
      * @var string
      */
-    protected $checkEndPoint = 'merchant-balances/';
+    protected $checkEndPoint = 'customer-wallets/';
 	
 	/**
      * The merchant code assigned for the application on Sasapay API.
@@ -37,13 +37,15 @@ class Balance extends SasaPayClient
       	@param string merchantCode
 		
      */
-    protected function check()
+    protected function check($accountNumber)
     {
         $parameters = [
-            "merchantCode" => $this->merchantCode
+            "merchantCode" => $this->merchantCode,
+			"accountNumber" => $accountNumber,
+			"countryCode" => "254"
         ];
 
-        return $this->call($this->checkEndPoint, ['json' => $parameters], 'GET');
+        return $this->call($this->checkEndPoint, ['json' => $parameters], 'POST');
     }
 	
 }
