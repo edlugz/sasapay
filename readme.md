@@ -15,22 +15,6 @@ Via Composer
 composer require edlugz/sasapay
 ```
 
-## Register Service Provider
-
-Add service provider to config/app.php in providers section
-
-```bash
-EdLugz\SasaPay\SasaPayServiceProvider::class,
-```
-
-## Register Facade
-
-Register package facade in config/app.php in aliases section
-
-```bash
-EdLugz\SasaPay\Facades\SasaPay::class,
-```
-
 ## Publish Configuration File
 
 ```bash
