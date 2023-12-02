@@ -16,8 +16,8 @@ use EdLugz\SasaPay\Requests\UtilityPayment;
 
 class SasaPay
 {
-     /**
-     * Initiate a balance enquiry
+    /**
+     * Initiate a balance enquiry.
      *
      * @return Balance
      */
@@ -25,9 +25,9 @@ class SasaPay
     {
         return new Balance();
     }
-	
+
     /**
-     * Initiate BusinessOnboarding
+     * Initiate BusinessOnboarding.
      *
      * @return BusinessOnboarding
      */
@@ -35,9 +35,9 @@ class SasaPay
     {
         return new BusinessOnboarding();
     }
-	
+
     /**
-     * Initiate Business Payment
+     * Initiate Business Payment.
      *
      * @return BusinessPayment
      */
@@ -45,9 +45,9 @@ class SasaPay
     {
         return new BusinessPayment();
     }
-	
+
     /**
-     * Initiate customer
+     * Initiate customer.
      *
      * @return Customer
      */
@@ -55,9 +55,9 @@ class SasaPay
     {
         return new Customer();
     }
-	
+
     /**
-     * Initiate Fund transaction
+     * Initiate Fund transaction.
      *
      * @return Fund
      */
@@ -65,9 +65,9 @@ class SasaPay
     {
         return new Fund();
     }
-	
+
     /**
-     * Initiate PersonalOnboarding
+     * Initiate PersonalOnboarding.
      *
      * @return PersonalOnboarding
      */
@@ -75,9 +75,9 @@ class SasaPay
     {
         return new PersonalOnboarding();
     }
-	
+
     /**
-     * Initiate SendMoney
+     * Initiate SendMoney.
      *
      * @return SendMoney
      */
@@ -85,9 +85,9 @@ class SasaPay
     {
         return new SendMoney();
     }
-	
+
     /**
-     * Initiate Statement
+     * Initiate Statement.
      *
      * @return Statement
      */
@@ -95,9 +95,9 @@ class SasaPay
     {
         return new Statement();
     }
-	
+
     /**
-     * Initiate Supplementary
+     * Initiate Supplementary.
      *
      * @return Supplementary
      */
@@ -105,9 +105,9 @@ class SasaPay
     {
         return new Supplementary();
     }
-	
+
     /**
-     * Initiate Transaction
+     * Initiate Transaction.
      *
      * @return Transaction
      */
@@ -115,9 +115,9 @@ class SasaPay
     {
         return new Transaction();
     }
-	
+
     /**
-     * Initiate UtilityPayment
+     * Initiate UtilityPayment.
      *
      * @return UtilityPayment
      */
@@ -125,5 +125,4 @@ class SasaPay
     {
         return new UtilityPayment();
     }
-	
 }

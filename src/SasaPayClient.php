@@ -2,12 +2,12 @@
 
 namespace EdLugz\SasaPay;
 
+use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
+use EdLugz\SasaPay\Logging\Log;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use Illuminate\Support\Facades\Route;
-use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
-use EdLugz\SasaPay\Logging\Log;
 
 class SasaPayClient
 {
@@ -45,10 +45,10 @@ class SasaPayClient
      * @var array
      */
     protected $channel = [
-        'sasapay' => '0',
-        'mpesa' => '63902', 
+        'sasapay'      => '0',
+        'mpesa'        => '63902',
         'airtel_money' => '63903',
-        'tkash' => '63907',
+        'tkash'        => '63907',
     ];
 
     /**
@@ -58,7 +58,7 @@ class SasaPayClient
      */
     protected $base_url = [
         'sandbox' => 'https://sandbox.sasapay.app/api/v2/waas/',
-        'live' => 'https://api.sasapay.app/api/v2/waas/',
+        'live'    => 'https://api.sasapay.app/api/v2/waas/',
     ];
 
     /**
@@ -74,7 +74,7 @@ class SasaPayClient
 
         $options = [
             'base_uri' => $this->base_url[$mode],
-            'verify' => $mode === 'sandbox' ? false : true,
+            'verify'   => $mode === 'sandbox' ? false : true,
         ];
 
         if (config('sasapay.logs.enabled')) {
@@ -92,6 +92,7 @@ class SasaPayClient
      * return the string assuming its a full URL.
      *
      * @param $urlConfig
+     *
      * @return string
      */
     protected function setUrl($urlConfig)
@@ -136,10 +137,12 @@ class SasaPayClient
      * Make API calls to Sasapay APIs.
      *
      * @param string $url
-     * @param array $options
+     * @param array  $options
      * @param string $method
-     * @return mixed
+     *
      * @throws SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function call($url, $options = [], $method = 'POST')
     {
@@ -159,14 +162,17 @@ class SasaPayClient
             $response = json_decode($e->getResponse()->getBody()->getContents());
             if (isset($response->Envelope)) {
                 $message = 'SasaPay APIs: '.$response->Envelope->Body->Fault->faultstring;
+
                 throw new SasaPayRequestException($message, $e->getCode());
             }
+
             throw new SasaPayRequestException('SasaPay APIs: '.$response->errorMessage, $e->getCode());
         } catch (ClientException $e) {
-			
-			echo $e; exit();
-			
+            echo $e;
+            exit;
+
             $response = json_decode($e->getResponse()->getBody()->getContents());
+
             throw new SasaPayRequestException('SasaPay APIs: '
                 .$response->errorMessage, $e->getCode());
         }

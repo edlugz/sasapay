@@ -6,11 +6,11 @@ use Illuminate\Support\ServiceProvider;
 
 class SasaPayServiceProvider extends ServiceProvider
 {
-	/**
+    /**
      * Package path to config.
      */
     const CONFIG_PATH = __DIR__.'/../config/sasapay.php';
-	
+
     /**
      * Perform post-registration booting of services.
      *
@@ -18,7 +18,7 @@ class SasaPayServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-		$this->publishes([
+        $this->publishes([
             self::CONFIG_PATH => config_path('sasapay.php'),
         ], 'config');
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'edlugz');
@@ -43,7 +43,7 @@ class SasaPayServiceProvider extends ServiceProvider
 
         // Register the service the package provides.
         $this->app->singleton('sasapay', function ($app) {
-            return new SasaPay;
+            return new SasaPay();
         });
     }
 

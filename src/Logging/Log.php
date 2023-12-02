@@ -16,13 +16,13 @@ class Log
      * @var array
      */
     protected static $levels = [
-        'DEBUG' => Logger::DEBUG,
-        'INFO' => Logger::INFO,
-        'NOTICE' => Logger::NOTICE,
-        'WARNING' => Logger::WARNING,
-        'ERROR' => Logger::ERROR,
-        'CRITICAL' => Logger::CRITICAL,
-        'ALERT' => Logger::ALERT,
+        'DEBUG'     => Logger::DEBUG,
+        'INFO'      => Logger::INFO,
+        'NOTICE'    => Logger::NOTICE,
+        'WARNING'   => Logger::WARNING,
+        'ERROR'     => Logger::ERROR,
+        'CRITICAL'  => Logger::CRITICAL,
+        'ALERT'     => Logger::ALERT,
         'EMERGENCY' => Logger::EMERGENCY,
     ];
 
@@ -30,6 +30,7 @@ class Log
      * Set up the logging requirements for the Guzzle package.
      *
      * @param $options
+     *
      * @return int
      */
     public static function enable($options)
@@ -41,7 +42,6 @@ class Log
             [
                 new StreamHandler(storage_path('logs/sasapay.log'), $level),
             ]
-
         );
 
         $stack = HandlerStack::create();
@@ -60,8 +60,9 @@ class Log
     /**
      * Determine the log level specified in the configurations.
      *
-     * @return mixed
      * @throws \Exception
+     *
+     * @return mixed
      */
     protected static function getLogLevel()
     {
