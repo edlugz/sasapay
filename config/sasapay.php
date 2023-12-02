@@ -49,7 +49,7 @@ return [
     */
 
     'mode' => 'live',
-	
+
     /*
     |--------------------------------------------------------------------------
     | Onboarding URLs
@@ -76,10 +76,10 @@ return [
     */
 
     'result_url' => [
-        'funding' => env('SASAPAY_FUNDING_RESULT_URL', ''),
-        'send_money' => env('SASAPAY_SEND_MONEY_RESULT_URL', ''),
+        'funding'          => env('SASAPAY_FUNDING_RESULT_URL', ''),
+        'send_money'       => env('SASAPAY_SEND_MONEY_RESULT_URL', ''),
         'business_payment' => env('SASAPAY_BUSINESS_PAYMENT_RESULT_URL', ''),
-        'utility_payment' => env('SASAPAY_UTILITY_PAYMENT_RESULT_URL', ''),
+        'utility_payment'  => env('SASAPAY_UTILITY_PAYMENT_RESULT_URL', ''),
     ],
 
     /*
@@ -96,7 +96,7 @@ return [
 
     'logs' => [
         'enabled' => true,
-        'level' => 'DEBUG',
+        'level'   => 'DEBUG',
     ],
 
 ];
