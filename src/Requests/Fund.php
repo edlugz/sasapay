@@ -46,7 +46,7 @@ class Fund extends SasaPayClient
 
         $this->merchantCode = config('sasapay.merchant_code');
 
-        $this->resultURL = $this->setUrl(config('sasapay.result_url.funding'));
+        $this->resultURL = config('sasapay.result_url.funding');
     }
 
     /**
