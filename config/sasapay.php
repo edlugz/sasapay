@@ -95,8 +95,8 @@ return [
     */
 
     'logs' => [
-        'enabled' => true,
-        'level'   => 'DEBUG',
+        'enabled' => env('SASAPAY_LOGS_ENABLED', true),
+        'level'   => env('SASAPAY_LOG_LEVEL', 'DEBUG'),
     ],
 
 ];
