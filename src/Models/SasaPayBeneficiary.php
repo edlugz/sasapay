@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class SasaPayBeneficiary extends Model
 {
     protected $fillable = [
+        'account_id',
         'first_name',
         'middle_name',
         'last_name',
