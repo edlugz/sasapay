@@ -52,7 +52,7 @@ class PersonalOnboarding extends SasaPayClient
     /**
      * Onboard personal accounts.
      *
-     * @param integer accountId
+     * @param integer accountId -  this links a beneficiary to your system table 
      * @param string merchantCode
      * @param string firstName
      * @param string middleName

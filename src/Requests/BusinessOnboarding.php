@@ -49,7 +49,7 @@ class BusinessOnboarding extends SasaPayClient
     /**
      * Onboard business accounts.
      *
-     * @param integer $accountId
+     * @param integer $accountId -  this links a beneficiary to your system table 
      * @param string $businessName
      * @param string $billNumber
      * @param string $description
