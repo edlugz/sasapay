@@ -28,7 +28,6 @@ class PersonalOnboarding extends SasaPayClient
      */
     protected string $kycEndPoint = 'personal-onboarding/kyc/';
 
-
     /**
      * The URL where Sasapay Transaction Status API will send result of the
      * transaction.

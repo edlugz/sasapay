@@ -54,6 +54,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get channel codes.
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function channelCodes()
@@ -63,6 +64,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get countries.
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function countries()
@@ -72,6 +74,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get sub regions.
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function subRegions()
@@ -81,6 +84,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get industries.
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function industries()
@@ -90,6 +94,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get sub regions.
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function subIndustries()
@@ -99,6 +104,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get business types.
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function businessTypes()
@@ -108,6 +114,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get account product types.
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function accountProductTypes()
@@ -117,8 +124,10 @@ class Supplementary extends SasaPayClient
 
     /**
      * get nearest sasapay agent locations.
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function agentLocations(): mixed
     {

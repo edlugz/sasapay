@@ -82,33 +82,33 @@ class SendMoney extends SasaPayClient
         ];
 
         $response = $this->call($this->endPoint, ['json' => $parameters]);
-		
-		$data = [
-                'request_status'      => $response->status,
-                'response_code'       => $response->responseCode,
-                'message'             => $response->message,
+
+        $data = [
+            'request_status'      => $response->status,
+            'response_code'       => $response->responseCode,
+            'message'             => $response->message,
         ];
 
         if ($response->status) {
-			$data = array_merge($data, [
-				'checkout_request_id' => $response->checkoutRequestID,
-				'transaction_charges' => $response->merchantReference,
-				'merchant_reference'  => $response->transactionCharges,
-			]);
+            $data = array_merge($data, [
+                'checkout_request_id' => $response->checkoutRequestID,
+                'transaction_charges' => $response->merchantReference,
+                'merchant_reference'  => $response->transactionCharges,
+            ]);
         }
-		
-		$payment->update($data);
+
+        $payment->update($data);
 
         return $response;
     }
 
     /**
      * Process results for send money function.
+     *
      * @param \Illuminate\Http\Request $request
      */
     protected function sendMoneyResult(Request $request): void
     {
-
         SasaPayTransaction::where('checkout_request_id', $request->input('CheckoutRequestID'))
         ->update([
             'result_code'                    => $request->input('ResultCode'),

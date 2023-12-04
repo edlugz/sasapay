@@ -28,7 +28,6 @@ class BusinessOnboarding extends SasaPayClient
      */
     protected string $kycEndPoint = 'business-onboarding/kyc/';
 
-
     /**
      * The URL where Sasapay Transaction Status API will send result of the
      * transaction.
@@ -73,7 +72,7 @@ class BusinessOnboarding extends SasaPayClient
      * @param string directorKraPin
      */
     protected function signUp(
-		$businessName,
+        $businessName,
         $billNumber,
         $description,
         $productType,
@@ -91,8 +90,9 @@ class BusinessOnboarding extends SasaPayClient
         $directorName,
         $directorIdnumber,
         $directorMobileNumber,
-        $directorKraPin )
-	{
+        $directorKraPin
+    )
+    {
         $beneficiary = SasaPayBeneficiary::create([
             'business_name'          => $businessName,
             'bill_number'            => $billNumber,
@@ -170,8 +170,10 @@ class BusinessOnboarding extends SasaPayClient
      *
      * @param $id
      * @param $otp
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function confirm($id, $otp)
     {
@@ -215,8 +217,10 @@ class BusinessOnboarding extends SasaPayClient
      * @param $directorIdCardFront
      * @param $directorIdCardBack
      * @param $directorKraPin
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function kyc($requestId, $businessKraPin, $businessRegistrationCertificate, $directorIdCardFront, $directorIdCardBack, $directorKraPin)
     {

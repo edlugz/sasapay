@@ -49,7 +49,6 @@ class UtilityPayment extends SasaPayClient
      * @param string accountNumber
      * @param string accountReference
      * @param string transactionFee
-	 *
      */
     protected function payUtility($amount, $payerAccountNumber, $accountNumber, $accountReference, $transactionFee = 0)
     {
@@ -80,21 +79,21 @@ class UtilityPayment extends SasaPayClient
         ];
 
         $response = $this->call($this->payEndPoint, ['json' => $parameters]);
-		
-		$data = [
-                'request_status'      => $response->status,
-                'response_code'       => $response->responseCode,
-                'message'             => $response->message,
+
+        $data = [
+            'request_status'      => $response->status,
+            'response_code'       => $response->responseCode,
+            'message'             => $response->message,
         ];
 
         if ($response->status) {
-			$data = array_merge($data, [
-				'checkout_request_id' => $response->checkoutRequestID,
-				'merchant_reference'  => $response->transactionCharges,
+            $data = array_merge($data, [
+                'checkout_request_id' => $response->checkoutRequestID,
+                'merchant_reference'  => $response->transactionCharges,
             ]);
         }
-		
-		$payment->update($data);
+
+        $payment->update($data);
 
         return $response;
     }
@@ -105,8 +104,10 @@ class UtilityPayment extends SasaPayClient
      * @param $serviceCode
      * @param $customerMobile
      * @param $accountNumber
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function billQuery($serviceCode, $customerMobile, $accountNumber): mixed
     {
@@ -122,12 +123,12 @@ class UtilityPayment extends SasaPayClient
 
     /**
      * Process results for pay utilities function.
+     *
      * @param \Illuminate\Http\Request $request
      */
     protected function utilityResult(Request $request): void
     {
-
-        SasaPayTransaction::where('checkout_request_id',$request->input('CheckoutRequestID'))
+        SasaPayTransaction::where('checkout_request_id', $request->input('CheckoutRequestID'))
         ->update([
             'result_code'           => $request->input('ResultCode'),
             'result_desc'           => $request->input('ResultDesc'),

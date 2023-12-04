@@ -72,6 +72,7 @@ class SasaPayClient
      * Make the initializations required to make calls to the Sasapay APIs
      * and throw the necessary exception if there are any missing required
      * configurations.
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     public function __construct()
@@ -146,12 +147,12 @@ class SasaPayClient
      * Make API calls to Sasapay APIs.
      *
      * @param string $url
-     * @param array $options
+     * @param array  $options
      * @param string $method
      *
-     * @return mixed
-     *@throws SasaPayRequestException
+     * @throws SasaPayRequestException
      *
+     * @return mixed
      */
     protected function call(string $url, array $options = [], string $method = 'POST'): mixed
     {
@@ -177,7 +178,6 @@ class SasaPayClient
 
             throw new SasaPayRequestException('SasaPay APIs: '.$response->errorMessage, $e->getCode());
         } catch (ClientException $e) {
-
             $response = json_decode($e->getResponse()->getBody()->getContents());
 
             throw new SasaPayRequestException('SasaPay APIs: '

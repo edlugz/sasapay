@@ -44,14 +44,16 @@ class Fund extends SasaPayClient
     /**
      * Send payment request to top up wallet (STK or via Sasapay App).
      *
-     * @param string $mobileNumber
-     * @param string $receiverAccountNumber
-     * @param string $amount
-     * @param string $transactionDesc
+     * @param string      $mobileNumber
+     * @param string      $receiverAccountNumber
+     * @param string      $amount
+     * @param string      $transactionDesc
      * @param string|null $fundReference
-     * @param string $networkCode
-     * @return mixed
+     * @param string      $networkCode
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function fundRequest(
         string $mobileNumber,
@@ -60,8 +62,7 @@ class Fund extends SasaPayClient
         string $transactionDesc,
         string $fundReference = null,
         string $networkCode = '63902'
-    ): mixed
-    {
+    ): mixed {
         $fundRef = empty($fundReference) ? (string) Str::uuid() : $fundReference;
 
         $funding = SasaPayFunding::create([
@@ -89,9 +90,9 @@ class Fund extends SasaPayClient
         $response = $this->call($this->requestEndPoint, ['json' => $parameters]);
 
         $data = [
-                'request_status'      => $response->status,
-                'response_code'       => $response->responseCode,
-                'message'             => $response->message,
+            'request_status'      => $response->status,
+            'response_code'       => $response->responseCode,
+            'message'             => $response->message,
         ];
 
         if ($response->status) {
@@ -114,8 +115,10 @@ class Fund extends SasaPayClient
      * @param $receiverAccountNumber
      * @param $checkoutRequestId
      * @param $verificationCode
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function processRequest($receiverAccountNumber, $checkoutRequestId, $verificationCode): mixed
     {
