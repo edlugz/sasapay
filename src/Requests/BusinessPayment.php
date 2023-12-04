@@ -113,7 +113,7 @@ class BusinessPayment extends SasaPayClient
     /**
      * Process results for send money function.
      *
-     * @param \Illuminate\Support\Facades\Request $request
+     * @param \Illuminate\Http\Request $request
      */
     protected function businessPaymentResult(Request $request): void
     {

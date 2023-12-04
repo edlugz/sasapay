@@ -4,7 +4,7 @@ namespace EdLugz\SasaPay\Requests;
 
 use Edlugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class UtilityPayment extends SasaPayClient
@@ -127,7 +127,7 @@ class UtilityPayment extends SasaPayClient
 
     /**
      * Process results for pay utilities function.
-     * @param \Illuminate\Support\Facades\Request $request
+     * @param \Illuminate\Http\Request $request
      */
     protected function utilityResult(Request $request): void
     {

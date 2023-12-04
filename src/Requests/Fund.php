@@ -4,7 +4,7 @@ namespace EdLugz\SasaPay\Requests;
 
 use Edlugz\SasaPay\Models\SasaPayFunding;
 use EdLugz\SasaPay\SasaPayClient;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class Fund extends SasaPayClient
@@ -132,7 +132,7 @@ class Fund extends SasaPayClient
     /**
      * Process a fund results.
      *
-     * @param \Illuminate\Support\Facades\Request $request
+     * @param \Illuminate\Http\Request $request
      */
     protected function fundingResult(Request $request): void
     {

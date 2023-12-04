@@ -107,10 +107,9 @@ class SendMoney extends SasaPayClient
 
     /**
      * Process results for send money function.
-     *
-     * @param jsonObject data
+     * @param \Illuminate\Http\Request $request
      */
-    protected function sendMoneyResult(Request $request)
+    protected function sendMoneyResult(Request $request): void
     {
 
         SasaPayTransaction::where('checkout_request_id', $request->input('CheckoutRequestID'))
