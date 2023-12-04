@@ -26,7 +26,7 @@ class SasaPayServiceProvider extends ServiceProvider
         //$this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->publishes([
-            __DIR__.'/../database/migrations/' => database_path('migrations')
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
         ], 'migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
