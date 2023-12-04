@@ -15,11 +15,12 @@ class Customer extends SasaPayClient
 
     protected string $detailEndPoint = 'customer-details/';
 
-
     /**
      * Retrieve the List of all your customers.
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     public function getCustomers(): mixed
     {
@@ -34,8 +35,10 @@ class Customer extends SasaPayClient
      * Retrieve details of an individual customer.
      *
      * @param $mobileNumber
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     public function customerDetails($mobileNumber): mixed
     {

@@ -20,15 +20,16 @@ class Transaction extends SasaPayClient
      */
     protected string $verifyEndPoint = 'transactions/verify/';
 
-
     /**
      * Check Transaction Status.
      *
      * @param $checkoutRequestId
      * @param $merchantTransactionReference
      * @param $transactionCode
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function check($checkoutRequestId, $merchantTransactionReference, $transactionCode): mixed
     {
@@ -46,8 +47,10 @@ class Transaction extends SasaPayClient
      * fetch your transactions statement directly from our API.
      *
      * @param $transactionCode
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function verify($transactionCode): mixed
     {

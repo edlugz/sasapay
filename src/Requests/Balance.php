@@ -17,8 +17,10 @@ class Balance extends SasaPayClient
      * Check merchant balance.
      *
      * @param string $accountNumber
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function check(string $accountNumber): mixed
     {

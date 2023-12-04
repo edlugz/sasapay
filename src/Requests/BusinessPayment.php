@@ -16,7 +16,6 @@ class BusinessPayment extends SasaPayClient
      */
     protected string $endPoint = 'payments/pay-bills/';
 
-
     /**
      * The URL where Sasapay Transaction Status API will send result of the
      * transaction.
@@ -52,9 +51,15 @@ class BusinessPayment extends SasaPayClient
      * @param string reason
      */
     protected function lipa(
-        $amount, $senderAccountNumber, $receiverMerchantCode,
-        $accountReference, $billerType, $networkCode, $reason, $transactionFee = 0
-    ){
+        $amount,
+        $senderAccountNumber,
+        $receiverMerchantCode,
+        $accountReference,
+        $billerType,
+        $networkCode,
+        $reason,
+        $transactionFee = 0
+    ) {
         $transactionRef = (string) Str::uuid();
 
         $payment = SasaPayTransaction::create([
@@ -88,21 +93,21 @@ class BusinessPayment extends SasaPayClient
         ];
 
         $response = $this->call($this->endPoint, ['json' => $parameters]);
-		
-		$data = [
-                'request_status'      => $response->status,
-                'response_code'       => $response->responseCode,
-                'message'             => $response->message,
+
+        $data = [
+            'request_status'      => $response->status,
+            'response_code'       => $response->responseCode,
+            'message'             => $response->message,
         ];
 
         if ($response->status) {
-			$data = array_merge($data, [                
-				'checkout_request_id' => $response->checkoutRequestID,
-				'transaction_charge'  => $response->transactionCharges,
+            $data = array_merge($data, [
+                'checkout_request_id' => $response->checkoutRequestID,
+                'transaction_charge'  => $response->transactionCharges,
             ]);
         }
-		
-		$payment->update($data);
+
+        $payment->update($data);
 
         return $response;
     }
@@ -114,7 +119,6 @@ class BusinessPayment extends SasaPayClient
      */
     protected function businessPaymentResult(Request $request): void
     {
-
         SasaPayTransaction::where('checkout_request_id', '=', $request->input('CheckoutRequestID'))
         ->update([
             'result_code'                    => $request->input('ResultCode'),

@@ -17,8 +17,10 @@ class Statement extends SasaPayClient
      * fetch your transactions statement directly from our API.
      *
      * @param $accountNumber
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     public function fetch($accountNumber): mixed
     {
