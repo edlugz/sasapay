@@ -4,7 +4,7 @@ namespace EdLugz\SasaPay\Requests;
 
 use Edlugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class BusinessPayment extends SasaPayClient
@@ -31,8 +31,6 @@ class BusinessPayment extends SasaPayClient
     public function __construct()
     {
         parent::__construct();
-
-        $this->merchantCode = config('sasapay.merchant_code');
 
         $this->resultURL = $this->setUrl(config('sasapay.result_url.business_payment'));
     }
@@ -63,7 +61,7 @@ class BusinessPayment extends SasaPayClient
             'transaction_reference'  => $transactionRef,
             'currency_code'          => 'KES',
             'amount'                 => $amount,
-            'sender_account_number'  => $senderNumber,
+            'sender_account_number'  => $senderAccountNumber,
             'receiver_merchant_code' => $receiverMerchantCode,
             'account_reference'      => $accountReference,
             'transaction_fee'        => $transactionFee,

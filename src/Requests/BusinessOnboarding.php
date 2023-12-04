@@ -72,8 +72,27 @@ class BusinessOnboarding extends SasaPayClient
      * @param string directorMobileNumber
      * @param string directorKraPin
      */
-    protected function signUp($firstName, $middleName, $lastName, $countryCode, $mobileNumber, $documentNumber, $documentType, $documentType)
-    {
+    protected function signUp(
+		$businessName,
+        $billNumber,
+        $description,
+        $productType,
+        $countryId,
+        $subregionId,
+        $industryId,
+        $subIndustryId,
+        $bankId,
+        $bankAccountNumber,
+        $mobileNumber,
+        $businessTypeId,
+        $email,
+        $registrationNumber,
+        $kraPin,
+        $directorName,
+        $directorIdnumber,
+        $directorMobileNumber,
+        $directorKraPin )
+	{
         $beneficiary = SasaPayBeneficiary::create([
             'business_name'          => $businessName,
             'bill_number'            => $billNumber,

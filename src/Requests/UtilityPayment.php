@@ -53,7 +53,7 @@ class UtilityPayment extends SasaPayClient
      * @param string transactionFee
      * @param string callbackUrl
      */
-    protected function payUtility($amount, $payerAccountNumber, $accountNumber, $transactionFee = 0)
+    protected function payUtility($amount, $payerAccountNumber, $accountNumber, $accountReference, $transactionFee = 0)
     {
         $transactionRef = (string) Str::uuid();
 
