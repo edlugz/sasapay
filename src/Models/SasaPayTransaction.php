@@ -43,7 +43,7 @@ class SasaPayTransaction extends Model
         'destination_channel',
         'source_channel',
         'sasapay_transaction_id',
-        'receipient_name',
+        'recipient_name',
         'sender_account_number',
     ];
 }

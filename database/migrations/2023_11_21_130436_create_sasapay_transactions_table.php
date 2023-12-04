@@ -48,7 +48,7 @@ return new class() extends Migration {
             $table->string('destination_channel')->nullable();
             $table->string('source_channel')->nullable();
             $table->string('sasapay_transaction_id')->nullable();
-            $table->string('receipient_name')->nullable();
+            $table->string('recipient_name')->nullable();
             $table->string('sender_account_number')->nullable();
             $table->timestamps();
         });
