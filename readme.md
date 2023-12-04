@@ -90,7 +90,7 @@ SasaPay::transaction()->verify($transactionCode);
 ```
 Balance - check merchant balance
 ```bash
-SasaPay::balance()->check();
+SasaPay::balance()->check($accountNumber);
 ```
 Supplementary functions - channel codes, countries, sub-regions, industries, sub-industries, business types, account product types, agent locations
 ```bash
