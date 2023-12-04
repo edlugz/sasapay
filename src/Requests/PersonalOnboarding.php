@@ -168,7 +168,7 @@ class PersonalOnboarding extends SasaPayClient
      *
      * @return mixed
      */
-    protected function kyc($customerMobileNumber, $passportSizePhoto, $documentImageFront, $documentImageBackdocumentImageBack)
+    protected function kyc($customerMobileNumber, $passportSizePhoto, $documentImageFront, $documentImageBack)
     {
         $parameters = [
             'merchantCode'         => $this->merchantCode,
