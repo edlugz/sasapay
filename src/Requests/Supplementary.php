@@ -11,66 +11,50 @@ class Supplementary extends SasaPayClient
      *
      * @var string
      */
-    protected $channelEndPoint = 'channel-codes/';
+    protected string $channelEndPoint = 'channel-codes/';
 
     /**
      * countries end and sub regions end point on Sasapay API.
      *
      * @var string
      */
-    protected $countryEndPoint = 'countries/';
+    protected string $countryEndPoint = 'countries/';
 
-    protected $subRegionEndPoint = 'countries/sub-regions/';
+    protected string $subRegionEndPoint = 'countries/sub-regions/';
 
     /**
      * industries end and sub industries end point on Sasapay API.
      *
      * @var string
      */
-    protected $industryEndPoint = 'industries/';
+    protected string $industryEndPoint = 'industries/';
 
-    protected $subIndustryEndPoint = 'sub-industries/';
+    protected string $subIndustryEndPoint = 'sub-industries/';
 
     /**
      * business types end point on Sasapay API.
      *
      * @var string
      */
-    protected $businessTypeEndPoint = 'business-types/';
+    protected string $businessTypeEndPoint = 'business-types/';
 
     /**
      * accountProduct types end point on Sasapay API.
      *
      * @var string
      */
-    protected $accountProductTypeEndPoint = 'products/';
+    protected string $accountProductTypeEndPoint = 'products/';
 
     /**
      * Nearest SasaPay Agents end point on Sasapay API.
      *
      * @var string
      */
-    protected $sasaPayAgentsEndPoint = 'nearest-agent/';
-
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
-
-    /**
-     * Supplementary constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->merchantCode = config('sasapay.merchant_code');
-    }
+    protected string $sasaPayAgentsEndPoint = 'nearest-agent/';
 
     /**
      * get channel codes.
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function channelCodes()
     {
@@ -79,6 +63,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get countries.
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function countries()
     {
@@ -87,6 +72,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get sub regions.
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function subRegions()
     {
@@ -95,6 +81,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get industries.
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function industries()
     {
@@ -103,6 +90,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get sub regions.
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function subIndustries()
     {
@@ -111,6 +99,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get business types.
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function businessTypes()
     {
@@ -119,6 +108,7 @@ class Supplementary extends SasaPayClient
 
     /**
      * get account product types.
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function accountProductTypes()
     {
@@ -127,8 +117,10 @@ class Supplementary extends SasaPayClient
 
     /**
      * get nearest sasapay agent locations.
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function accountProductTypes()
+    protected function agentLocations(): mixed
     {
         return $this->call($this->sasaPayAgentsEndPoint, [], 'GET');
     }

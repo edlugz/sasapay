@@ -4,6 +4,7 @@ namespace EdLugz\SasaPay\Requests;
 
 use Edlugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
 class UtilityPayment extends SasaPayClient
@@ -13,21 +14,14 @@ class UtilityPayment extends SasaPayClient
      *
      * @var string
      */
-    protected $payEndPoint = 'utilities/';
+    protected string $payEndPoint = 'utilities/';
 
     /**
      * query bill end point on Sasapay API.
      *
      * @var string
      */
-    protected $queryEndPoint = 'utilities/bill-query';
-
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
+    protected string $queryEndPoint = 'utilities/bill-query';
 
     /**
      * The URL where Sasapay Transaction Status API will send result of the
@@ -35,7 +29,7 @@ class UtilityPayment extends SasaPayClient
      *
      * @var string
      */
-    protected $resultURL;
+    protected string $resultURL;
 
     /**
      * UtilityPayment constructor.
@@ -43,8 +37,6 @@ class UtilityPayment extends SasaPayClient
     public function __construct()
     {
         parent::__construct();
-
-        $this->merchantCode = config('sasapay.merchant_code');
 
         $this->resultURL = $this->setUrl(config('sasapay.result_url.business_payment'));
     }
@@ -115,12 +107,13 @@ class UtilityPayment extends SasaPayClient
     /**
      * Query Bill Payments before paying - DSTV, GOTV, NAIROBI WATER.
      *
-     * @param string merchantCode
-     * @param string serviceCode
-     * @param string customerMobile
-     * @param string accountNumber
+     * @param $serviceCode
+     * @param $customerMobile
+     * @param $accountNumber
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function billQuery($serviceCode, $customerMobile, $accountNumber)
+    protected function billQuery($serviceCode, $customerMobile, $accountNumber): mixed
     {
         $parameters = [
             'merchantCode'   => $this->merchantCode,
@@ -133,27 +126,25 @@ class UtilityPayment extends SasaPayClient
     }
 
     /**
-     * Process results for pay utilites function.
-     *
-     * @param jsonObject data
+     * Process results for pay utilities function.
+     * @param \Illuminate\Support\Facades\Request $request
      */
-    protected function utilityResult($data)
+    protected function utilityResult(Request $request): void
     {
-        $data = json_decode($data);
 
-        SasaPayTransaction::where('checkout_request_id', $data->CheckoutRequestID)
+        SasaPayTransaction::where('checkout_request_id',$request->input('CheckoutRequestID'))
         ->update([
-            'result_code'           => $data->ResultCode,
-            'result_desc'           => $data->ResultDesc,
-            'merchant_reference'    => $data->MerchantTransactionReference,
-            'contact_number'        => $data->ContactNumber,
-            'sender_account_number' => $data->SenderAccountNumber,
-            'account_number'        => $data->AccountNumber,
-            'service_code'          => $data->ServiceCode,
-            'pin'                   => $data->Pin,
-            'network_code'          => $data->NetworkCode,
-            'transaction_date'      => $data->TransTime,
-            'units'                 => $data->Units,
+            'result_code'           => $request->input('ResultCode'),
+            'result_desc'           => $request->input('ResultDesc'),
+            'merchant_reference'    => $request->input('MerchantTransactionReference'),
+            'contact_number'        => $request->input('ContactNumber'),
+            'sender_account_number' => $request->input('SenderAccountNumber'),
+            'account_number'        => $request->input('AccountNumber'),
+            'service_code'          => $request->input('ServiceCode'),
+            'pin'                   => $request->input('Pin'),
+            'network_code'          => $request->input('NetworkCode'),
+            'transaction_date'      => $request->input('TransTime'),
+            'units'                 => $request->input('Units'),
         ]);
     }
 }

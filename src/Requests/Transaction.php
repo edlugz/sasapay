@@ -11,41 +11,26 @@ class Transaction extends SasaPayClient
      *
      * @var string
      */
-    protected $checkEndPoint = 'transactions/status/';
+    protected string $checkEndPoint = 'transactions/status/';
 
     /**
      * verify transaction end point on Sasapay API.
      *
      * @var string
      */
-    protected $verifyEndPoint = 'transactions/verify/';
+    protected string $verifyEndPoint = 'transactions/verify/';
 
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
-
-    /**
-     * Transaction constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->merchantCode = config('sasapay.merchant_code');
-    }
 
     /**
      * Check Transaction Status.
      *
-     * @param string merchantCode
-     * @param string checkoutRequestId
-     * @param string merchantTransactionReference
-     * @param string transactionCode
+     * @param $checkoutRequestId
+     * @param $merchantTransactionReference
+     * @param $transactionCode
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function check($checkoutRequestId, $merchantTransactionReference, $transactionCode)
+    protected function check($checkoutRequestId, $merchantTransactionReference, $transactionCode): mixed
     {
         $parameters = [
             'merchantCode'                 => $this->merchantCode,
@@ -60,10 +45,11 @@ class Transaction extends SasaPayClient
     /**
      * fetch your transactions statement directly from our API.
      *
-     * @param string merchantCode
-     * @param string transactionCode
+     * @param $transactionCode
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function verify($transactionCode)
+    protected function verify($transactionCode): mixed
     {
         $parameters = [
             'merchantCode'    => $this->merchantCode,

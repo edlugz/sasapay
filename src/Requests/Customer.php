@@ -11,33 +11,17 @@ class Customer extends SasaPayClient
      *
      * @var string
      */
-    protected $customersEndPoint = 'customers/';
+    protected string $customersEndPoint = 'customers/';
 
-    protected $detailEndPoint = 'customer-details/';
+    protected string $detailEndPoint = 'customer-details/';
 
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
-
-    /**
-     * Customer constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->merchantCode = config('sasapay.merchant_code');
-    }
 
     /**
      * Retrieve the List of all your customers.
-     *
-     * @param string merchantCode
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    public function getCustomers()
+    public function getCustomers(): mixed
     {
         $parameters = [
             'merchant_code' => $this->merchantCode,
@@ -49,14 +33,15 @@ class Customer extends SasaPayClient
     /**
      * Retrieve details of an individual customer.
      *
-     * @param string merchantCode
-     * @param string accountNumber
+     * @param $mobileNumber
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    public function customerDetails($accountNumber)
+    public function customerDetails($mobileNumber): mixed
     {
         $parameters = [
             'merchantCode'  => $this->merchantCode,
-            'accountNumber' => $accountNumber,
+            'accountNumber' => $mobileNumber,
             'countryCode'   => '254',
         ];
 

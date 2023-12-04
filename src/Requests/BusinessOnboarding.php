@@ -12,28 +12,22 @@ class BusinessOnboarding extends SasaPayClient
      *
      * @var string
      */
-    protected $signupEndPoint = 'business-onboarding/';
+    protected string $signupEndPoint = 'business-onboarding/';
 
     /**
      * business onboarding confirmation end point on Sasapay API.
      *
      * @var string
      */
-    protected $confirmationEndPoint = 'business-onboarding/confirmation/';
+    protected string $confirmationEndPoint = 'business-onboarding/confirmation/';
 
     /**
      * business onboarding kyc end point on Sasapay API.
      *
      * @var string
      */
-    protected $kycEndPoint = 'business-onboarding/kyc/';
+    protected string $kycEndPoint = 'business-onboarding/kyc/';
 
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
 
     /**
      * The URL where Sasapay Transaction Status API will send result of the
@@ -41,7 +35,7 @@ class BusinessOnboarding extends SasaPayClient
      *
      * @var string
      */
-    protected $resultURL;
+    protected string $resultURL;
 
     /**
      * Business onboardings constructor.
@@ -49,8 +43,6 @@ class BusinessOnboarding extends SasaPayClient
     public function __construct()
     {
         parent::__construct();
-
-        $this->merchantCode = config('sasapay.merchant_code');
 
         $this->resultURL = $this->setUrl(config('sasapay.onboarding_result_url.business'));
     }
@@ -157,11 +149,10 @@ class BusinessOnboarding extends SasaPayClient
     /**
      * Confirm business onboarded accounts.
      *
-     * @param string merchantCode
-     * @param string requestId
-     * @param string otp
-     *
+     * @param $id
+     * @param $otp
      * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function confirm($id, $otp)
     {
@@ -199,14 +190,14 @@ class BusinessOnboarding extends SasaPayClient
     /**
      * Upload business kyc documents.
      *
-     * @param string merchantCode
-     * @param string requestId
-     * @param string passportSizePhoto
-     * @param string businessRegistrationCertificate
-     * @param string directorIdCardFront
-     * @param string directorIdCardBack
-     *
+     * @param $requestId
+     * @param $businessKraPin
+     * @param $businessRegistrationCertificate
+     * @param $directorIdCardFront
+     * @param $directorIdCardBack
+     * @param $directorKraPin
      * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     protected function kyc($requestId, $businessKraPin, $businessRegistrationCertificate, $directorIdCardFront, $directorIdCardBack, $directorKraPin)
     {

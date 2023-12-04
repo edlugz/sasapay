@@ -4,6 +4,7 @@ namespace EdLugz\SasaPay\Requests;
 
 use Edlugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
 class SendMoney extends SasaPayClient
@@ -13,14 +14,7 @@ class SendMoney extends SasaPayClient
      *
      * @var string
      */
-    protected $endPoint = 'payments/send-money/';
-
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
+    protected string $endPoint = 'payments/send-money/';
 
     /**
      * The URL where Sasapay Transaction Status API will send result of the
@@ -28,7 +22,7 @@ class SendMoney extends SasaPayClient
      *
      * @var string
      */
-    protected $resultURL;
+    protected string $resultURL;
 
     /**
      * SendMoney constructor.
@@ -36,8 +30,6 @@ class SendMoney extends SasaPayClient
     public function __construct()
     {
         parent::__construct();
-
-        $this->merchantCode = config('sasapay.merchant_code');
 
         $this->resultURL = $this->setUrl(config('sasapay.result_url.send_money'));
     }
@@ -118,23 +110,22 @@ class SendMoney extends SasaPayClient
      *
      * @param jsonObject data
      */
-    protected function sendMoneyResult($data)
+    protected function sendMoneyResult(Request $request)
     {
-        $data = json_decode($data);
 
-        SasaPayTransaction::where('checkout_request_id', $data->CheckoutRequestID)
+        SasaPayTransaction::where('checkout_request_id', $request->input('CheckoutRequestID'))
         ->update([
-            'result_code'                    => $data->ResultCode,
-            'result_desc'                    => $data->ResultDesc,
-            'merchant_account_balance'       => $data->MerchantAccountBalance,
-            'merchant_transaction_reference' => $data->MerchantTransactionReference,
-            'transaction_date'               => $data->TransactionDate,
-            'recipient_account_number'       => $data->RecipientAccountNumber,
-            'destination_channel'            => $data->DestinationChannel,
-            'source_channel'                 => $data->SourceChannel,
-            'sasapay_transaction_id'         => $data->SasaPayTransactionID,
-            'recipient_name'                 => $data->RecipientName,
-            'sender_account_number'          => $data->SenderAccountNumber,
+            'result_code'                    => $request->input('ResultCode'),
+            'result_desc'                    => $request->input('ResultDesc'),
+            'merchant_account_balance'       => $request->input('MerchantAccountBalance'),
+            'merchant_transaction_reference' => $request->input('MerchantTransactionReference'),
+            'transaction_date'               => $request->input('TransactionDate'),
+            'recipient_account_number'       => $request->input('RecipientAccountNumber'),
+            'destination_channel'            => $request->input('DestinationChannel'),
+            'source_channel'                 => $request->input('SourceChannel'),
+            'sasapay_transaction_id'         => $request->input('SasaPayTransactionID'),
+            'recipient_name'                 => $request->input('RecipientName'),
+            'sender_account_number'          => $request->input('SenderAccountNumber'),
         ]);
     }
 }

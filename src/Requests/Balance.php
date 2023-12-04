@@ -11,31 +11,16 @@ class Balance extends SasaPayClient
      *
      * @var string
      */
-    protected $checkEndPoint = 'customer-wallets/';
-
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
-
-    /**
-     * Balance constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->merchantCode = config('sasapay.merchant_code');
-    }
+    protected string $checkEndPoint = 'customer-wallets/';
 
     /**
      * Check merchant balance.
      *
-     * @param string merchantCode
+     * @param string $accountNumber
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function check($accountNumber)
+    protected function check(string $accountNumber): mixed
     {
         $parameters = [
             'merchantCode'  => $this->merchantCode,

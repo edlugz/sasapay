@@ -4,6 +4,7 @@ namespace EdLugz\SasaPay\Requests;
 
 use Edlugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
 class BusinessPayment extends SasaPayClient
@@ -13,14 +14,8 @@ class BusinessPayment extends SasaPayClient
      *
      * @var string
      */
-    protected $endPoint = 'payments/pay-bills/';
+    protected string $endPoint = 'payments/pay-bills/';
 
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
 
     /**
      * The URL where Sasapay Transaction Status API will send result of the
@@ -28,7 +23,7 @@ class BusinessPayment extends SasaPayClient
      *
      * @var string
      */
-    protected $resultURL;
+    protected string $resultURL;
 
     /**
      * BusinessPayment constructor.
@@ -58,8 +53,10 @@ class BusinessPayment extends SasaPayClient
      * @param string callbackUrl
      * @param string reason
      */
-    protected function lipa($amount, $senderAccountNumber, $receiverMerchantCode, $accountReference, $transactionFee = 0, $billerType, $networkCode, $reason)
-    {
+    protected function lipa(
+        $amount, $senderAccountNumber, $receiverMerchantCode,
+        $accountReference, $billerType, $networkCode, $reason, $transactionFee = 0
+    ){
         $transactionRef = (string) Str::uuid();
 
         $payment = SasaPayTransaction::create([
@@ -118,25 +115,24 @@ class BusinessPayment extends SasaPayClient
     /**
      * Process results for send money function.
      *
-     * @param jsonObject data
+     * @param \Illuminate\Support\Facades\Request $request
      */
-    protected function businessPaymentResult($data)
+    protected function businessPaymentResult(Request $request): void
     {
-        $data = json_decode($data);
 
-        SasaPayTransaction::where('checkout_request_id', $data->CheckoutRequestID)
+        SasaPayTransaction::where('checkout_request_id', '=', $request->input('CheckoutRequestID'))
         ->update([
-            'result_code'                    => $data->ResultCode,
-            'result_desc'                    => $data->ResultDesc,
-            'merchant_account_balance'       => $data->MerchantAccountBalance,
-            'merchant_transaction_reference' => $data->MerchantTransactionReference,
-            'transaction_date'               => $data->TransactionDate,
-            'recipient_account_number'       => $data->RecipientAccountNumber,
-            'destination_channel'            => $data->DestinationChannel,
-            'source_channel'                 => $data->SourceChannel,
-            'sasapay_transaction_id'         => $data->SasaPayTransactionID,
-            'recipient_name'                 => $data->RecipientName,
-            'sender_account_number'          => $data->SenderAccountNumber,
+            'result_code'                    => $request->input('ResultCode'),
+            'result_desc'                    => $request->input('ResultDesc'),
+            'merchant_account_balance'       => $request->input('MerchantAccountBalance'),
+            'merchant_transaction_reference' => $request->input('MerchantTransactionReference'),
+            'transaction_date'               => $request->input('TransactionDate'),
+            'recipient_account_number'       => $request->input('RecipientAccountNumber'),
+            'destination_channel'            => $request->input('DestinationChannel'),
+            'source_channel'                 => $request->input('SourceChannel'),
+            'sasapay_transaction_id'         => $request->input('SasaPayTransactionID'),
+            'recipient_name'                 => $request->input('RecipientName'),
+            'sender_account_number'          => $request->input('SenderAccountNumber'),
         ]);
     }
 }

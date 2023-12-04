@@ -4,6 +4,7 @@ namespace EdLugz\SasaPay\Requests;
 
 use Edlugz\SasaPay\Models\SasaPayFunding;
 use EdLugz\SasaPay\SasaPayClient;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
 class Fund extends SasaPayClient
@@ -13,21 +14,14 @@ class Fund extends SasaPayClient
      *
      * @var string
      */
-    protected $requestEndPoint = 'payments/request-payment/';
+    protected string $requestEndPoint = 'payments/request-payment/';
 
     /**
      * Individual customer details end point on Sasapay API.
      *
      * @var string
      */
-    protected $processEndPoint = 'payments/process-payment/';
-
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
+    protected string $processEndPoint = 'payments/process-payment/';
 
     /**
      * The URL where Sasapay Transaction Status API will send result of the
@@ -35,7 +29,7 @@ class Fund extends SasaPayClient
      *
      * @var string
      */
-    protected $resultURL;
+    protected string $resultURL;
 
     /**
      * Fund constructor.
@@ -44,29 +38,31 @@ class Fund extends SasaPayClient
     {
         parent::__construct();
 
-        $this->merchantCode = config('sasapay.merchant_code');
-
         $this->resultURL = config('sasapay.result_url.funding');
     }
 
     /**
      * Send payment request to top up wallet (STK or via Sasapay App).
      *
-     * @param string merchantCode
-     * @param string merchantReference
-     * @param string networkCode
-     * @param string mobileNumber
-     * @param string receiverAccountNumber
-     * @param string amount
-     * @param string transactionFee
-     * @param string currencyCode
-     * @param string transactionDesc
-     * @param string amount
-     * @param string callbackUrl
+     * @param string $mobileNumber
+     * @param string $receiverAccountNumber
+     * @param string $amount
+     * @param string $transactionDesc
+     * @param string|null $fundReference
+     * @param string $networkCode
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function fundRequest($networkCode, $mobileNumber, $receiverAccountNumber, $amount, $transactionDesc)
+    protected function fundRequest(
+        string $mobileNumber,
+        string $receiverAccountNumber,
+        string $amount,
+        string $transactionDesc,
+        string $fundReference = null,
+        string $networkCode = '63902'
+    ): mixed
     {
-        $fundRef = (string) Str::uuid();
+        $fundRef = empty($fundReference) ? (string) Str::uuid() : $fundReference;
 
         $funding = SasaPayFunding::create([
             'fund_reference'          => $fundRef,
@@ -76,8 +72,6 @@ class Fund extends SasaPayClient
             'amount'                  => $amount,
             'currency_code'           => 'KES',
         ]);
-
-        $id = $funding->id;
 
         $parameters = [
             'merchantCode'          => $this->merchantCode,
@@ -94,25 +88,22 @@ class Fund extends SasaPayClient
 
         $response = $this->call($this->requestEndPoint, ['json' => $parameters]);
 
-        if ($response->status == true) {
-            $update = SasaPayFunding::where('id', $id)
-                    ->update([
-                        'request_status'      => $response->status,
-                        'response_code'       => $response->responseCode,
-                        'message'             => $response->message,
-                        'payment_gateway'     => $response->paymentGateway,
-                        'checkout_request_id' => $response->checkoutRequestID,
-                        'merchant_reference'  => $response->merchantReference,
-                        'customer_message'    => $response->customerMessage,
-                    ]);
-        } else {
-            $update = SasaPayFunding::where('id', $id)
-                    ->update([
-                        'request_status' => $response->status,
-                        'response_code'  => $response->responseCode,
-                        'message'        => $response->message,
-                    ]);
+        $data = [
+                'request_status'      => $response->status,
+                'response_code'       => $response->responseCode,
+                'message'             => $response->message,
+        ];
+
+        if ($response->status) {
+            $data = array_merge($data, [
+                'payment_gateway'     => $response->paymentGateway,
+                'checkout_request_id' => $response->checkoutRequestID,
+                'merchant_reference'  => $response->merchantReference,
+                'customer_message'    => $response->customerMessage,
+            ]);
         }
+
+        $funding->update($data);
 
         return $response;
     }
@@ -120,12 +111,13 @@ class Fund extends SasaPayClient
     /**
      * Process a fund request via Sasapay channel.
      *
-     * @param string merchantCode
-     * @param string receiverAccountNumber
-     * @param string checkoutRequestId
-     * @param string verificationCode
+     * @param $receiverAccountNumber
+     * @param $checkoutRequestId
+     * @param $verificationCode
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function processRequest($receiverAccountNumber, $checkoutRequestId, $verificationCode)
+    protected function processRequest($receiverAccountNumber, $checkoutRequestId, $verificationCode): mixed
     {
         $parameters = [
             'merchantCode'          => $this->merchantCode,
@@ -140,22 +132,20 @@ class Fund extends SasaPayClient
     /**
      * Process a fund results.
      *
-     * @param jsonObject data
+     * @param \Illuminate\Support\Facades\Request $request
      */
-    protected function fundingResult($data)
+    protected function fundingResult(Request $request): void
     {
-        $data = json_decode($data);
-
-        SasaPayFunding::where('checkout_request_id', $data->CheckoutRequestID)
+        SasaPayFunding::where('checkout_request_id', $request->input('CheckoutRequestID'))
         ->update([
-            'payment_request_id'   => $data->PaymentRequestID,
-            'result_code'          => $data->ResultCode,
-            'result_description'   => $data->ResultDesc,
-            'source_channel'       => $data->SourceChannel,
-            'bill_ref_number'      => $data->BillRefNumber,
-            'transaction_date'     => $data->TransactionDate,
-            'transaction_code'     => $data->TransactionCode,
-            'third_party_trans_id' => $data->ThirdPartyTransID,
+            'payment_request_id'   => $request->input('PaymentRequestID'),
+            'result_code'          => $request->input('ResultCode'),
+            'result_description'   => $request->input('ResultDesc'),
+            'source_channel'       => $request->input('SourceChannel'),
+            'bill_ref_number'      => $request->input('BillRefNumber'),
+            'transaction_date'     => $request->input('TransactionDate'),
+            'transaction_code'     => $request->input('TransactionCode'),
+            'third_party_trans_id' => $request->input('ThirdPartyTransID'),
         ]);
     }
 }

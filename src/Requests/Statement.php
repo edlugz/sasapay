@@ -11,32 +11,16 @@ class Statement extends SasaPayClient
      *
      * @var string
      */
-    protected $endPoint = 'transactions/';
-
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
-
-    /**
-     * Statement constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->merchantCode = config('sasapay.merchant_code');
-    }
+    protected string $endPoint = 'transactions/';
 
     /**
      * fetch your transactions statement directly from our API.
      *
-     * @param string merchantCode
-     * @param string accountNumber
+     * @param $accountNumber
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    public function fetch($accountNumber)
+    public function fetch($accountNumber): mixed
     {
         $parameters = [
             'merchantCode'  => $this->merchantCode,

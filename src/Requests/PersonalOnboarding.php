@@ -12,28 +12,22 @@ class PersonalOnboarding extends SasaPayClient
      *
      * @var string
      */
-    protected $signupEndPoint = 'personal-onboarding/';
+    protected string $signupEndPoint = 'personal-onboarding/';
 
     /**
      * Personal onboarding confirmation end point on Sasapay API.
      *
      * @var string
      */
-    protected $confirmationEndPoint = 'personal-onboarding/confirmation/';
+    protected string $confirmationEndPoint = 'personal-onboarding/confirmation/';
 
     /**
      * Personal onboarding kyc end point on Sasapay API.
      *
      * @var string
      */
-    protected $kycEndPoint = 'personal-onboarding/kyc/';
+    protected string $kycEndPoint = 'personal-onboarding/kyc/';
 
-    /**
-     * The merchant code assigned for the application on Sasapay API.
-     *
-     * @var string
-     */
-    protected $merchantCode;
 
     /**
      * The URL where Sasapay Transaction Status API will send result of the
@@ -41,7 +35,7 @@ class PersonalOnboarding extends SasaPayClient
      *
      * @var string
      */
-    protected $resultURL;
+    protected string $resultURL;
 
     /**
      * Personal onboarding constructor.
