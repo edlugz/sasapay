@@ -23,7 +23,11 @@ class SasaPayServiceProvider extends ServiceProvider
         ], 'config');
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'edlugz');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'edlugz');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        //$this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations')
+        ], 'migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         // Publishing is only necessary when using the CLI.
