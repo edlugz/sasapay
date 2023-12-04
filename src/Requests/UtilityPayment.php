@@ -44,14 +44,12 @@ class UtilityPayment extends SasaPayClient
     /**
      * pay utilities including airtime purchase, electricity payments, water payment and tv payments.
      *
-     * @param string merchantCode
-     * @param string transactionReference
-     * @param string currencyCode
      * @param string amount
      * @param string payerAccountNumber
      * @param string accountNumber
+     * @param string accountReference
      * @param string transactionFee
-     * @param string callbackUrl
+	 *
      */
     protected function payUtility($amount, $payerAccountNumber, $accountNumber, $accountReference, $transactionFee = 0)
     {
