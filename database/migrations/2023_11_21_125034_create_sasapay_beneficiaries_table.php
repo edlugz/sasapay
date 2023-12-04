@@ -49,7 +49,7 @@ return new class() extends Migration {
             $table->string('confirmation_response_code')->nullable();
             $table->string('account_number')->nullable();
             $table->string('account_status')->nullable();
-			$table->softDeletes();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

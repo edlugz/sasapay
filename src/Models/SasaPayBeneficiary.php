@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SasaPayBeneficiary extends Model
 {
-	use SoftDeletes;
-	
+    use SoftDeletes;
+
     protected $fillable = [
         'account_id',
         'first_name',
