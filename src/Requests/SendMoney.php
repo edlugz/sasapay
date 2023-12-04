@@ -37,16 +37,18 @@ class SendMoney extends SasaPayClient
     /**
      * Transfer funds to mobile wallets or bank accounts.
      *
-     * @param string $transactionDesc
-     * @param string $senderNumber
-     * @param int $amount
-     * @param string $reason
-     * @param string $channel
-     * @param string $receiverNumber
+     * @param string      $transactionDesc
+     * @param string      $senderNumber
+     * @param int         $amount
+     * @param string      $reason
+     * @param string      $channel
+     * @param string      $receiverNumber
      * @param string|null $transactionReference
-     * @param int $transactionFee
-     * @return mixed
+     * @param int         $transactionFee
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function transfer(
         string $transactionDesc,
@@ -57,8 +59,7 @@ class SendMoney extends SasaPayClient
         string $receiverNumber,
         string $transactionReference = null,
         int $transactionFee = 0
-    ): mixed
-    {
+    ): mixed {
         $transactionRef = empty($transactionReference) ? (string) Str::uuid() : $transactionReference;
 
         $payment = SasaPayTransaction::create([

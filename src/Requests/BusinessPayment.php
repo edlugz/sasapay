@@ -38,16 +38,18 @@ class BusinessPayment extends SasaPayClient
      * Transfer funds to mobile wallets or bank accounts.
      *
      *
-     * @param int $amount
+     * @param int    $amount
      * @param string $senderAccountNumber
      * @param string $receiverMerchantCode
      * @param string $accountReference
      * @param string $billerType
      * @param string $networkCode
      * @param string $reason
-     * @param int $transactionFee
-     * @return mixed
+     * @param int    $transactionFee
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function lipa(
         int $amount,
@@ -58,8 +60,7 @@ class BusinessPayment extends SasaPayClient
         string $networkCode,
         string $reason,
         int $transactionFee = 0
-    ): mixed
-    {
+    ): mixed {
         $transactionRef = (string) Str::uuid();
 
         $payment = SasaPayTransaction::create([
