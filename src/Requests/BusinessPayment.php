@@ -88,24 +88,21 @@ class BusinessPayment extends SasaPayClient
         ];
 
         $response = $this->call($this->endPoint, ['json' => $parameters]);
+		
+		$data = [
+                'request_status'      => $response->status,
+                'response_code'       => $response->responseCode,
+                'message'             => $response->message,
+        ];
 
-        if ($response->status == true) {
-            $update = SasaPayTransaction::where('id', $id)
-                    ->update([
-                        'request_status'      => $response->status,
-                        'response_code'       => $response->responseCode,
-                        'message'             => $response->message,
-                        'checkout_request_id' => $response->checkoutRequestID,
-                        'merchant_reference'  => $response->transactionCharges,
-                    ]);
-        } else {
-            $update = SasaPayTransaction::where('id', $id)
-                    ->update([
-                        'request_status' => $response->status,
-                        'response_code'  => $response->responseCode,
-                        'message'        => $response->message,
-                    ]);
+        if ($response->status) {
+			$data = array_merge($data, [                
+				'checkout_request_id' => $response->checkoutRequestID,
+				'transaction_charge'  => $response->transactionCharges,
+            ]);
         }
+		
+		$payment->update($data);
 
         return $response;
     }
