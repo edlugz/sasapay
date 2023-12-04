@@ -28,7 +28,6 @@ class PersonalOnboarding extends SasaPayClient
      */
     protected string $kycEndPoint = 'personal-onboarding/kyc/';
 
-
     /**
      * The URL where Sasapay Transaction Status API will send result of the
      * transaction.
@@ -52,7 +51,7 @@ class PersonalOnboarding extends SasaPayClient
     /**
      * Onboard personal accounts.
      *
-     * @param integer accountId -  this links a beneficiary to your system table 
+     * @param int accountId -  this links a beneficiary to your system table
      * @param string merchantCode
      * @param string firstName
      * @param string middleName
