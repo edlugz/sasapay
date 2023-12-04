@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SasaPayFunding extends Model
 {
-	use SoftDeletes;
-	
+    use SoftDeletes;
+
     protected $fillable = [
         'fund_reference',
         'network_code',

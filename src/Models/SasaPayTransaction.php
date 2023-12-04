@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SasaPayTransaction extends Model
 {
-	use SoftDeletes;
-	
+    use SoftDeletes;
+
     protected $fillable = [
         'transaction_reference',
         'service_code',
