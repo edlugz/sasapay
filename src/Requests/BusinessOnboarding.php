@@ -68,8 +68,10 @@ class BusinessOnboarding extends SasaPayClient
      * @param string $directorIdNumber
      * @param string $directorMobileNumber
      * @param string $directorKraPin
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function signUp(
         string $businessName,
@@ -91,54 +93,52 @@ class BusinessOnboarding extends SasaPayClient
         string $directorIdNumber,
         string $directorMobileNumber,
         string $directorKraPin
-    ): mixed
-    {
+    ): mixed {
         $beneficiary = SasaPayBeneficiary::create([
-            'business_name' => $businessName,
-            'bill_number' => $billNumber,
-            'description' => $description,
-            'product_type' => $productType,
-            'country_code' => $countryId,
-            'sub_region' => $subregionId,
-            'industry' => $industryId,
-            'sub_industry' => $subIndustryId,
-            'bank_code' => $bankId,
-            'bank_account_number' => $bankAccountNumber,
-            'mobile_number' => $mobileNumber,
-            'business_type' => $businessTypeId,
-            'email' => $email,
-            'registration_number' => $registrationNumber,
-            'kra_pin' => $kraPin,
-            'director_name' => $directorName,
-            'director_id_number' => $directorIdNumber,
+            'business_name'          => $businessName,
+            'bill_number'            => $billNumber,
+            'description'            => $description,
+            'product_type'           => $productType,
+            'country_code'           => $countryId,
+            'sub_region'             => $subregionId,
+            'industry'               => $industryId,
+            'sub_industry'           => $subIndustryId,
+            'bank_code'              => $bankId,
+            'bank_account_number'    => $bankAccountNumber,
+            'mobile_number'          => $mobileNumber,
+            'business_type'          => $businessTypeId,
+            'email'                  => $email,
+            'registration_number'    => $registrationNumber,
+            'kra_pin'                => $kraPin,
+            'director_name'          => $directorName,
+            'director_id_number'     => $directorIdNumber,
             'director_mobile_number' => $directorMobileNumber,
-            'director_kra_pin' => $directorKraPin,
+            'director_kra_pin'       => $directorKraPin,
         ]);
 
-
         $parameters = [
-            'merchantCode' => $this->merchantCode,
-            'businessName' => $businessName,
-            'billNumber' => $billNumber,
-            'description' => $description,
-            'productType' => $productType,
-            'countryId' => $countryId,
-            'subregionId' => $subregionId,
-            'industryId' => $industryId,
-            'subIndustryId' => $subIndustryId,
-            'bankId' => $bankId,
-            'bankAccountNumber' => $bankAccountNumber,
-            'mobileNumber' => $mobileNumber,
-            'businessTypeId' => $businessTypeId,
-            'email' => $email,
+            'merchantCode'       => $this->merchantCode,
+            'businessName'       => $businessName,
+            'billNumber'         => $billNumber,
+            'description'        => $description,
+            'productType'        => $productType,
+            'countryId'          => $countryId,
+            'subregionId'        => $subregionId,
+            'industryId'         => $industryId,
+            'subIndustryId'      => $subIndustryId,
+            'bankId'             => $bankId,
+            'bankAccountNumber'  => $bankAccountNumber,
+            'mobileNumber'       => $mobileNumber,
+            'businessTypeId'     => $businessTypeId,
+            'email'              => $email,
             'registrationNumber' => $registrationNumber,
-            'kraPin' => $kraPin,
-            'callbackUrl' => $this->resultURL,
-            'directors' => [
-                'directorName' => $directorName,
-                'directorIdnumber' => $directorIdNumber,
+            'kraPin'             => $kraPin,
+            'callbackUrl'        => $this->resultURL,
+            'directors'          => [
+                'directorName'         => $directorName,
+                'directorIdnumber'     => $directorIdNumber,
                 'directorMobileNumber' => $directorMobileNumber,
-                'directorKraPin' => $directorKraPin,
+                'directorKraPin'       => $directorKraPin,
             ],
         ];
 
@@ -146,14 +146,14 @@ class BusinessOnboarding extends SasaPayClient
 
         $data = [
             'request_status' => $response->status,
-            'response_code' => $response->responseCode,
-            'message' => $response->message,
+            'response_code'  => $response->responseCode,
+            'message'        => $response->message,
         ];
 
         if ($response->status) {
             $data = array_merge($data, [
-                    'request_id' => $response->requestId,
-                ]);
+                'request_id' => $response->requestId,
+            ]);
         }
 
         $beneficiary->update($data);
@@ -167,9 +167,9 @@ class BusinessOnboarding extends SasaPayClient
      * @param $id
      * @param $otp
      *
-     * @return mixed
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      *
+     * @return mixed
      */
     protected function confirm($id, $otp): mixed
     {
@@ -177,15 +177,15 @@ class BusinessOnboarding extends SasaPayClient
 
         $parameters = [
             'merchantCode' => $this->merchantCode,
-            'requestId' => $beneficiary->request_id,
-            'otp' => $otp,
+            'requestId'    => $beneficiary->request_id,
+            'otp'          => $otp,
         ];
 
         $response = $this->call($this->confirmationEndPoint, ['json' => $parameters]);
 
         $data = [
-            'confirmation_status' => $response->status,
-            'confirmation_message' => $response->message,
+            'confirmation_status'        => $response->status,
+            'confirmation_message'       => $response->message,
             'confirmation_response_code' => $response->responseCode,
         ];
 
@@ -211,20 +211,20 @@ class BusinessOnboarding extends SasaPayClient
      * @param $directorIdCardBack
      * @param $directorKraPin
      *
-     * @return mixed
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      *
+     * @return mixed
      */
     protected function kyc($requestId, $businessKraPin, $businessRegistrationCertificate, $directorIdCardFront, $directorIdCardBack, $directorKraPin): mixed
     {
         $parameters = [
-            'merchantCode' => $this->merchantCode,
-            'requestId' => $requestId,
-            'businessKraPin' => $businessKraPin,
+            'merchantCode'                    => $this->merchantCode,
+            'requestId'                       => $requestId,
+            'businessKraPin'                  => $businessKraPin,
             'businessRegistrationCertificate' => $businessRegistrationCertificate,
-            'directorIdCardFront' => $directorIdCardFront,
-            'directorIdCardBack' => $directorIdCardBack,
-            'directorKraPin' => $directorKraPin,
+            'directorIdCardFront'             => $directorIdCardFront,
+            'directorIdCardBack'              => $directorIdCardBack,
+            'directorKraPin'                  => $directorKraPin,
         ];
 
         return $this->call($this->kycEndPoint, ['json' => $parameters]);

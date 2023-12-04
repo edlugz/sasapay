@@ -51,54 +51,59 @@ class PersonalOnboarding extends SasaPayClient
     /**
      * Onboard personal accounts.
      *
-     * @param $firstName
-     * @param $lastName
-     * @param $email
-     * @param $countryCode
-     * @param $mobileNumber
-     * @param $documentNumber
-     * @param $documentType
+     * @param        $firstName
+     * @param        $lastName
+     * @param        $email
+     * @param        $countryCode
+     * @param        $mobileNumber
+     * @param        $documentNumber
+     * @param        $documentType
      * @param string $middleName
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function signUp(
-        $firstName, $lastName, $email,
-      $countryCode, $mobileNumber,
-      $documentNumber, $documentType, string $middleName = ''
-    ): mixed
-    {
+        $firstName,
+        $lastName,
+        $email,
+        $countryCode,
+        $mobileNumber,
+        $documentNumber,
+        $documentType,
+        string $middleName = ''
+    ): mixed {
         $beneficiary = SasaPayBeneficiary::create([
-            'first_name' => $firstName,
-            'middle_name' => $middleName,
-            'last_name' => $lastName,
-            'email' => $email,
-            'mobile_number' => $mobileNumber,
-            'country_code' => $countryCode,
-            'document_type' => $documentType,
+            'first_name'      => $firstName,
+            'middle_name'     => $middleName,
+            'last_name'       => $lastName,
+            'email'           => $email,
+            'mobile_number'   => $mobileNumber,
+            'country_code'    => $countryCode,
+            'document_type'   => $documentType,
             'document_number' => $documentNumber,
         ]);
 
-
         $parameters = [
-            'merchantCode' => $this->merchantCode,
-            'firstName' => $firstName,
-            'middleName' => $middleName,
-            'lastName' => $lastName,
-            'countryCode' => $countryCode,
-            'mobileNumber' => $mobileNumber,
+            'merchantCode'   => $this->merchantCode,
+            'firstName'      => $firstName,
+            'middleName'     => $middleName,
+            'lastName'       => $lastName,
+            'countryCode'    => $countryCode,
+            'mobileNumber'   => $mobileNumber,
             'documentNumber' => $documentNumber,
-            'documentType' => $documentType,
-            'email' => $email,
-            'callbackUrl' => $this->resultURL,
+            'documentType'   => $documentType,
+            'email'          => $email,
+            'callbackUrl'    => $this->resultURL,
         ];
 
         $response = $this->call($this->signupEndPoint, ['json' => $parameters]);
 
         $data = [
             'request_status' => $response->status,
-            'response_code' => $response->responseCode,
-            'message' => $response->message,
+            'response_code'  => $response->responseCode,
+            'message'        => $response->message,
         ];
 
         if ($response->status) {
@@ -117,8 +122,10 @@ class PersonalOnboarding extends SasaPayClient
      *
      * @param $id
      * @param $otp
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function confirm($id, $otp): mixed
     {
@@ -126,15 +133,15 @@ class PersonalOnboarding extends SasaPayClient
 
         $parameters = [
             'merchantCode' => $this->merchantCode,
-            'requestId' => $beneficiary->request_id,
-            'otp' => $otp,
+            'requestId'    => $beneficiary->request_id,
+            'otp'          => $otp,
         ];
 
         $response = $this->call($this->confirmationEndPoint, ['json' => $parameters]);
 
         $data = [
-            'confirmation_status' => $response->status,
-            'confirmation_message' => $response->message,
+            'confirmation_status'        => $response->status,
+            'confirmation_message'       => $response->message,
             'confirmation_response_code' => $response->responseCode,
         ];
 
@@ -154,20 +161,22 @@ class PersonalOnboarding extends SasaPayClient
      * Upload personal kyc documents.
      *
      * @param string $customerMobileNumber
-     * @param $passportSizePhoto
-     * @param $documentImageFront
-     * @param $documentImageBack
-     * @return mixed
+     * @param        $passportSizePhoto
+     * @param        $documentImageFront
+     * @param        $documentImageBack
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     protected function kyc(string $customerMobileNumber, $passportSizePhoto, $documentImageFront, $documentImageBack): mixed
     {
         $parameters = [
-            'merchantCode' => $this->merchantCode,
+            'merchantCode'         => $this->merchantCode,
             'customerMobileNumber' => $customerMobileNumber,
-            'passportSizePhoto' => $passportSizePhoto,
-            'documentImageFront' => $documentImageFront,
-            'documentImageBack' => $documentImageBack,
+            'passportSizePhoto'    => $passportSizePhoto,
+            'documentImageFront'   => $documentImageFront,
+            'documentImageBack'    => $documentImageBack,
         ];
 
         return $this->call($this->kycEndPoint, ['json' => $parameters]);
