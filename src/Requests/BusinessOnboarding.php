@@ -49,6 +49,7 @@ class BusinessOnboarding extends SasaPayClient
     /**
      * Onboard business accounts.
      *
+     * @param integer $accountId
      * @param string $businessName
      * @param string $billNumber
      * @param string $description
@@ -74,6 +75,7 @@ class BusinessOnboarding extends SasaPayClient
      * @return mixed
      */
     public function signUp(
+        string $accountId,
         string $businessName,
         string $billNumber,
         string $description,
@@ -96,6 +98,7 @@ class BusinessOnboarding extends SasaPayClient
     ): mixed {
         $beneficiary = SasaPayBeneficiary::create([
             'business_name'          => $businessName,
+            'account_id'             => $accountId,
             'bill_number'            => $billNumber,
             'description'            => $description,
             'product_type'           => $productType,
