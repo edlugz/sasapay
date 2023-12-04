@@ -5,9 +5,12 @@
 namespace Edlugz\SasaPay\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SasaPayBeneficiary extends Model
 {
+	use SoftDeletes;
+	
     protected $fillable = [
         'account_id',
         'first_name',

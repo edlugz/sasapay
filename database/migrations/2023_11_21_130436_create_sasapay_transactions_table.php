@@ -50,6 +50,7 @@ return new class() extends Migration {
             $table->string('sasapay_transaction_id')->nullable();
             $table->string('recipient_name')->nullable();
             $table->string('sender_account_number')->nullable();
+			$table->softDeletes();
             $table->timestamps();
         });
     }

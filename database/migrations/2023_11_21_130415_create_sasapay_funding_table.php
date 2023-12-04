@@ -41,6 +41,7 @@ return new class() extends Migration {
             $table->string('transaction_date')->nullable();
             $table->string('transaction_code')->nullable();
             $table->string('third_party_trans_id')->nullable();
+			$table->softDeletes();
             $table->timestamps();
         });
     }
