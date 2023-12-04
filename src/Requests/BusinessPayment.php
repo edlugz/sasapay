@@ -51,7 +51,7 @@ class BusinessPayment extends SasaPayClient
      *
      * @return mixed
      */
-    protected function lipa(
+    public function lipa(
         int $amount,
         string $senderAccountNumber,
         string $receiverMerchantCode,
@@ -118,7 +118,7 @@ class BusinessPayment extends SasaPayClient
      *
      * @param \Illuminate\Http\Request $request
      */
-    protected function businessPaymentResult(Request $request): void
+    public function businessPaymentResult(Request $request): void
     {
         SasaPayTransaction::where('checkout_request_id', '=', $request->input('CheckoutRequestID'))
         ->update([

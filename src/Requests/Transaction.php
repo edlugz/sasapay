@@ -31,7 +31,7 @@ class Transaction extends SasaPayClient
      *
      * @return mixed
      */
-    protected function check($checkoutRequestId, $merchantTransactionReference, $transactionCode): mixed
+    public function check($checkoutRequestId, $merchantTransactionReference, $transactionCode): mixed
     {
         $parameters = [
             'merchantCode'                 => $this->merchantCode,
@@ -52,7 +52,7 @@ class Transaction extends SasaPayClient
      *
      * @return mixed
      */
-    protected function verify($transactionCode): mixed
+    public function verify($transactionCode): mixed
     {
         $parameters = [
             'merchantCode'    => $this->merchantCode,

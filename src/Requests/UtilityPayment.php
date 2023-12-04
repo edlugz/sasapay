@@ -54,7 +54,7 @@ class UtilityPayment extends SasaPayClient
      *
      * @return mixed
      */
-    protected function payUtility(
+    public function payUtility(
         $amount,
         $payerAccountNumber,
         $accountNumber,
@@ -118,7 +118,7 @@ class UtilityPayment extends SasaPayClient
      *
      * @return mixed
      */
-    protected function billQuery($serviceCode, $customerMobile, $accountNumber): mixed
+    public function billQuery($serviceCode, $customerMobile, $accountNumber): mixed
     {
         $parameters = [
             'merchantCode'   => $this->merchantCode,
@@ -135,7 +135,7 @@ class UtilityPayment extends SasaPayClient
      *
      * @param \Illuminate\Http\Request $request
      */
-    protected function utilityResult(Request $request): void
+    public function utilityResult(Request $request): void
     {
         SasaPayTransaction::where('checkout_request_id', $request->input('CheckoutRequestID'))
         ->update([

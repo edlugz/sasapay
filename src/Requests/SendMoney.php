@@ -50,7 +50,7 @@ class SendMoney extends SasaPayClient
      *
      * @return mixed
      */
-    protected function transfer(
+    public function transfer(
         string $transactionDesc,
         string $senderNumber,
         int $amount,
@@ -116,7 +116,7 @@ class SendMoney extends SasaPayClient
      *
      * @param \Illuminate\Http\Request $request
      */
-    protected function sendMoneyResult(Request $request): void
+    public function sendMoneyResult(Request $request): void
     {
         SasaPayTransaction::where('checkout_request_id', $request->input('CheckoutRequestID'))
         ->update([

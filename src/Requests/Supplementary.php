@@ -57,7 +57,7 @@ class Supplementary extends SasaPayClient
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function channelCodes()
+    public function channelCodes()
     {
         return $this->call($this->channelEndPoint, [], 'GET');
     }
@@ -67,7 +67,7 @@ class Supplementary extends SasaPayClient
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function countries()
+    public function countries()
     {
         return $this->call($this->countryEndPoint, [], 'GET');
     }
@@ -77,7 +77,7 @@ class Supplementary extends SasaPayClient
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function subRegions()
+    public function subRegions()
     {
         return $this->call($this->subRegionEndPoint, [], 'GET');
     }
@@ -87,7 +87,7 @@ class Supplementary extends SasaPayClient
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function industries()
+    public function industries()
     {
         return $this->call($this->industryEndPoint, [], 'GET');
     }
@@ -97,7 +97,7 @@ class Supplementary extends SasaPayClient
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function subIndustries()
+    public function subIndustries()
     {
         return $this->call($this->subIndustryEndPoint, [], 'GET');
     }
@@ -107,7 +107,7 @@ class Supplementary extends SasaPayClient
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function businessTypes()
+    public function businessTypes()
     {
         return $this->call($this->businessTypeEndPoint, [], 'GET');
     }
@@ -117,7 +117,7 @@ class Supplementary extends SasaPayClient
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function accountProductTypes()
+    public function accountProductTypes()
     {
         return $this->call($this->accountProductTypeEndPoint, [], 'GET');
     }
@@ -129,7 +129,7 @@ class Supplementary extends SasaPayClient
      *
      * @return mixed
      */
-    protected function agentLocations(): mixed
+    public function agentLocations(): mixed
     {
         return $this->call($this->sasaPayAgentsEndPoint, [], 'GET');
     }

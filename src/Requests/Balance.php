@@ -22,7 +22,7 @@ class Balance extends SasaPayClient
      *
      * @return mixed
      */
-    protected function check(string $accountNumber): mixed
+    public function check(string $accountNumber): mixed
     {
         $parameters = [
             'merchantCode'  => $this->merchantCode,

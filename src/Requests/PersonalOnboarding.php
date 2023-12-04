@@ -66,7 +66,7 @@ class PersonalOnboarding extends SasaPayClient
      *
      * @return mixed
      */
-    protected function signUp($accountId, $firstName, $middleName = '', $lastName, $email, $countryCode, $mobileNumber, $documentNumber, $documentType)
+    public function signUp($accountId, $firstName, $middleName = '', $lastName, $email, $countryCode, $mobileNumber, $documentNumber, $documentType)
     {
         $beneficiary = SasaPayBeneficiary::create([
             'account_id'      => $accountId,
@@ -126,7 +126,7 @@ class PersonalOnboarding extends SasaPayClient
      *
      * @return mixed
      */
-    protected function confirm($id, $otp)
+    public function confirm($id, $otp)
     {
         $beneficiary = SasaPayBeneficiary::find($id);
 
@@ -170,7 +170,7 @@ class PersonalOnboarding extends SasaPayClient
      *
      * @return mixed
      */
-    protected function kyc($customerMobileNumber, $passportSizePhoto, $documentImageFront, $documentImageBack)
+    public function kyc($customerMobileNumber, $passportSizePhoto, $documentImageFront, $documentImageBack)
     {
         $parameters = [
             'merchantCode'         => $this->merchantCode,

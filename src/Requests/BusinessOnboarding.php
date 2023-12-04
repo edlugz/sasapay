@@ -73,7 +73,7 @@ class BusinessOnboarding extends SasaPayClient
      *
      * @return mixed
      */
-    protected function signUp(
+    public function signUp(
         string $businessName,
         string $billNumber,
         string $description,
@@ -171,7 +171,7 @@ class BusinessOnboarding extends SasaPayClient
      *
      * @return mixed
      */
-    protected function confirm($id, $otp): mixed
+    public function confirm($id, $otp): mixed
     {
         $beneficiary = SasaPayBeneficiary::find($id);
 
@@ -215,7 +215,7 @@ class BusinessOnboarding extends SasaPayClient
      *
      * @return mixed
      */
-    protected function kyc($requestId, $businessKraPin, $businessRegistrationCertificate, $directorIdCardFront, $directorIdCardBack, $directorKraPin): mixed
+    public function kyc($requestId, $businessKraPin, $businessRegistrationCertificate, $directorIdCardFront, $directorIdCardBack, $directorKraPin): mixed
     {
         $parameters = [
             'merchantCode'                    => $this->merchantCode,

@@ -55,7 +55,7 @@ class Fund extends SasaPayClient
      *
      * @return mixed
      */
-    protected function fundRequest(
+    public function fundRequest(
         string $mobileNumber,
         string $receiverAccountNumber,
         string $amount,
@@ -120,7 +120,7 @@ class Fund extends SasaPayClient
      *
      * @return mixed
      */
-    protected function processRequest($receiverAccountNumber, $checkoutRequestId, $verificationCode): mixed
+    public function processRequest($receiverAccountNumber, $checkoutRequestId, $verificationCode): mixed
     {
         $parameters = [
             'merchantCode'          => $this->merchantCode,
@@ -137,7 +137,7 @@ class Fund extends SasaPayClient
      *
      * @param \Illuminate\Http\Request $request
      */
-    protected function fundingResult(Request $request): void
+    public function fundingResult(Request $request): void
     {
         SasaPayFunding::where('checkout_request_id', $request->input('CheckoutRequestID'))
         ->update([
