@@ -44,13 +44,18 @@ class UtilityPayment extends SasaPayClient
     /**
      * pay utilities including airtime purchase, electricity payments, water payment and tv payments.
      *
-     * @param string amount
-     * @param string payerAccountNumber
-     * @param string accountNumber
-     * @param string accountReference
-     * @param string transactionFee
+     * @param $amount
+     * @param $payerAccountNumber
+     * @param $accountNumber
+     * @param $accountReference
+     * @param int $transactionFee
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function payUtility($amount, $payerAccountNumber, $accountNumber, $accountReference, $transactionFee = 0)
+    protected function payUtility(
+        $amount, $payerAccountNumber, $accountNumber,
+        $accountReference, $transactionFee = 0
+    ): mixed
     {
         $transactionRef = (string) Str::uuid();
 

@@ -37,21 +37,29 @@ class SendMoney extends SasaPayClient
     /**
      * Transfer funds to mobile wallets or bank accounts.
      *
-     * @param string merchantCode
-     * @param string transactionReference
-     * @param string currencyCode
-     * @param string TransactionDesc
-     * @param string senderNumber
-     * @param string amount
-     * @param string reason
-     * @param string transactionFee
-     * @param string channel
-     * @param string receiverNumber
-     * @param string callbackUrl
+     * @param string $transactionDesc
+     * @param string $senderNumber
+     * @param int $amount
+     * @param string $reason
+     * @param string $channel
+     * @param string $receiverNumber
+     * @param string|null $transactionReference
+     * @param int $transactionFee
+     * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
-    protected function transfer($transactionDesc, $senderNumber, $amount, $reason, $transactionFee = 0, $channel, $receiverNumber)
+    protected function transfer(
+        string $transactionDesc,
+        string $senderNumber,
+        int $amount,
+        string $reason,
+        string $channel,
+        string $receiverNumber,
+        string $transactionReference = null,
+        int $transactionFee = 0
+    ): mixed
     {
-        $transactionRef = (string) Str::uuid();
+        $transactionRef = empty($transactionReference) ? (string) Str::uuid() : $transactionReference;
 
         $payment = SasaPayTransaction::create([
             'transaction_reference' => $transactionRef,
@@ -70,7 +78,7 @@ class SendMoney extends SasaPayClient
         $parameters = [
             'merchantCode'         => $this->merchantCode,
             'transactionReference' => $transactionRef,
-            'currencyCode'         => $currencyCode,
+            'currencyCode'         => 'KES',
             'TransactionDesc'      => $transactionDesc,
             'senderNumber'         => $senderNumber,
             'amount'               => $amount,
