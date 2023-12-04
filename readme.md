@@ -18,7 +18,7 @@ composer require edlugz/sasapay
 ## Publish Configuration File
 
 ```bash
-php artisan vendor:publish --provider="EdLugz\SasaPay\SasaPayServiceProvider" --tag="config"
+php artisan vendor:publish --provider="EdLugz\SasaPay\SasaPayServiceProvider" --tag="migrations"
 ```
 
 Fill in all the details you will be requiring for your application. Here are the env variables for quick copy paste.
