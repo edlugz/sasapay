@@ -2,7 +2,7 @@
 
 // File: packages/Edlugz/SasPay/src/Models/SasaPayTransaction.php
 
-namespace Edlugz\SasaPay\Models;
+namespace EdLugz\SasaPay\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

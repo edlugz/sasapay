@@ -2,7 +2,7 @@
 
 namespace EdLugz\SasaPay\Requests;
 
-use Edlugz\SasaPay\Models\SasaPayBeneficiary;
+use EdLugz\SasaPay\Models\SasaPayBeneficiary;
 use EdLugz\SasaPay\SasaPayClient;
 
 class BusinessOnboarding extends SasaPayClient

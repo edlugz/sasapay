@@ -2,7 +2,7 @@
 
 namespace EdLugz\SasaPay\Requests;
 
-use Edlugz\SasaPay\Models\SasaPayTransaction;
+use EdLugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
