@@ -99,7 +99,7 @@ class Fund extends SasaPayClient
             $data = array_merge($data, [
                 'payment_gateway'     => $response->paymentGateway,
                 'checkout_request_id' => $response->checkoutRequestID,
-                'merchant_reference'  => $response->merchantReference,
+                'merchant_reference'  => $response->merchantRequestID,
                 'customer_message'    => $response->customerMessage,
             ]);
         }
