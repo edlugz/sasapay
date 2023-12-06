@@ -6,6 +6,7 @@ use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
 use EdLugz\SasaPay\Logging\Log;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 use Illuminate\Support\Facades\Route;
 
@@ -182,6 +183,8 @@ class SasaPayClient
 
             throw new SasaPayRequestException('SasaPay APIs: '
                 .$response->errorMessage, $e->getCode());
+        } catch (GuzzleException $e) {
+            throw new SasaPayRequestException('SasaPay APIs: ' .$e->getMessage(), $e->getCode());
         }
     }
 }
