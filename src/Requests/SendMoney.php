@@ -138,7 +138,7 @@ class SendMoney extends SasaPayClient
         int $transactionFee = 0
     ): mixed {
         
-		SendMoney::transfer(
+		return SendMoney::transfer(
 			$transactionDesc,
 			$senderNumber,
 			$amount,
@@ -178,7 +178,7 @@ class SendMoney extends SasaPayClient
         int $transactionFee = 0
     ): mixed {
         
-		SendMoney::transfer(
+		return SendMoney::transfer(
 			$transactionDesc,
 			$senderNumber,
 			$amount,
