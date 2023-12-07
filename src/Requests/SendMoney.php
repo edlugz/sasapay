@@ -50,7 +50,7 @@ class SendMoney extends SasaPayClient
      *
      * @return mixed
      */
-    public function transfer(
+    private function transfer(
         string $transactionDesc,
         string $senderNumber,
         int $amount,
@@ -109,6 +109,86 @@ class SendMoney extends SasaPayClient
         $payment->update($data);
 
         return $response;
+    }
+
+    /**
+     * Transfer funds to mobile wallets
+     *
+     * @param string      $transactionDesc
+     * @param string      $senderNumber
+     * @param int         $amount
+     * @param string      $reason
+     * @param string      $networkCode
+     * @param string      $receiverNumber
+     * @param string|null $transactionReference
+     * @param int         $transactionFee
+     *
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
+     */
+    public function sendToMobile(
+        string $transactionDesc,
+        string $senderNumber,
+        int $amount,
+        string $reason,
+        string $networkCode,
+        string $receiverNumber,
+        string $transactionReference = null,
+        int $transactionFee = 0
+    ): mixed {
+        
+		SendMoney::transfer(
+			$transactionDesc,
+			$senderNumber,
+			$amount,
+			$reason,
+			$networkCode,
+			$receiverNumber,
+			$transactionReference,
+			$transactionFee
+		);
+		
+    }
+
+    /**
+     * Transfer funds to bank accounts
+     *
+     * @param string      $transactionDesc
+     * @param string      $senderNumber
+     * @param int         $amount
+     * @param string      $reason
+     * @param string      $bankCode
+     * @param string      $accountNumber
+     * @param string|null $transactionReference
+     * @param int         $transactionFee
+     *
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
+     */
+    public function sendToMobile(
+        string $transactionDesc,
+        string $senderNumber,
+        int $amount,
+        string $reason,
+        string $bankCode,
+        string $accountNumber,
+        string $transactionReference = null,
+        int $transactionFee = 0
+    ): mixed {
+        
+		SendMoney::transfer(
+			$transactionDesc,
+			$senderNumber,
+			$amount,
+			$reason,
+			$bankCode,
+			$accountNumber,
+			$transactionReference = null,
+			$transactionFee = 0
+		);
+		
     }
 
     /**
