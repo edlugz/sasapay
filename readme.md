@@ -65,13 +65,13 @@ SasaPay::fund()->fundingResult($data);
 ```
 Send Money -  to mobile wallets
 ```bash
-SasaPay::SendMoney()->sendToMObile($transactionDesc, $senderNumber, $amount, $reason, $transactionFee = 0, $networkCode, $receiverNumber);
-SasaPay::SendMoney()->sendMoneyResult($data);
+SasaPay::sendMoney()->sendToMObile($transactionDesc, $senderNumber, $amount, $reason, $transactionFee = 0, $networkCode, $receiverNumber);
+SasaPay::sendMoney()->sendMoneyResult($data);
 ```
 Send Money -  to bank accounts
 ```bash
-SasaPay::SendMoney()->sendToBank($transactionDesc, $senderNumber, $amount, $reason, $transactionFee = 0, $bankCode, $accountNumber);
-SasaPay::SendMoney()->sendMoneyResult($data);
+SasaPay::sendMoney()->sendToBank($transactionDesc, $senderNumber, $amount, $reason, $transactionFee = 0, $bankCode, $accountNumber);
+SasaPay::sendMoney()->sendMoneyResult($data);
 ```
 Lipa - to paybills and till numbers
 ```bash
