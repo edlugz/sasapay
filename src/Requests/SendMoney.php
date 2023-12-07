@@ -112,7 +112,7 @@ class SendMoney extends SasaPayClient
     }
 
     /**
-     * Transfer funds to mobile wallets
+     * Transfer funds to mobile wallets.
      *
      * @param string      $transactionDesc
      * @param string      $senderNumber
@@ -137,22 +137,20 @@ class SendMoney extends SasaPayClient
         string $transactionReference = null,
         int $transactionFee = 0
     ): mixed {
-        
-		SendMoney::transfer(
-			$transactionDesc,
-			$senderNumber,
-			$amount,
-			$reason,
-			$networkCode,
-			$receiverNumber,
-			$transactionReference,
-			$transactionFee
-		);
-		
+        SendMoney::transfer(
+            $transactionDesc,
+            $senderNumber,
+            $amount,
+            $reason,
+            $networkCode,
+            $receiverNumber,
+            $transactionReference,
+            $transactionFee
+        );
     }
 
     /**
-     * Transfer funds to bank accounts
+     * Transfer funds to bank accounts.
      *
      * @param string      $transactionDesc
      * @param string      $senderNumber
@@ -177,18 +175,16 @@ class SendMoney extends SasaPayClient
         string $transactionReference = null,
         int $transactionFee = 0
     ): mixed {
-        
-		SendMoney::transfer(
-			$transactionDesc,
-			$senderNumber,
-			$amount,
-			$reason,
-			$bankCode,
-			$accountNumber,
-			$transactionReference = null,
-			$transactionFee = 0
-		);
-		
+        SendMoney::transfer(
+            $transactionDesc,
+            $senderNumber,
+            $amount,
+            $reason,
+            $bankCode,
+            $accountNumber,
+            $transactionReference = null,
+            $transactionFee = 0
+        );
     }
 
     /**
