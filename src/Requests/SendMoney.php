@@ -120,8 +120,7 @@ class SendMoney extends SasaPayClient
      * @param string      $reason
      * @param string      $networkCode
      * @param string      $receiverNumber
-     * @param string|null $transactionReference
-     * @param int         $transactionFee
+     * @param string      $transactionReference
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      *
@@ -133,7 +132,8 @@ class SendMoney extends SasaPayClient
         int $amount,
         string $reason,
         string $networkCode,
-        string $receiverNumber
+        string $receiverNumber,
+        string $transactionReference
     ): mixed {
         
 		return SendMoney::transfer(
@@ -142,7 +142,8 @@ class SendMoney extends SasaPayClient
 			$amount,
 			$reason,
 			$networkCode,
-			$receiverNumber
+			$receiverNumber,
+            $transactionReference
 		);
 
     }
@@ -156,8 +157,7 @@ class SendMoney extends SasaPayClient
      * @param string      $reason
      * @param string      $bankCode
      * @param string      $accountNumber
-     * @param string|null $transactionReference
-     * @param int         $transactionFee
+     * @param string      $transactionReference
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      *
@@ -169,7 +169,8 @@ class SendMoney extends SasaPayClient
         int $amount,
         string $reason,
         string $bankCode,
-        string $accountNumber
+        string $accountNumber,
+        string $transactionReference
     ): mixed {
         
 		return SendMoney::transfer(
@@ -178,7 +179,8 @@ class SendMoney extends SasaPayClient
 			$amount,
 			$reason,
 			$bankCode,
-			$accountNumber
+			$accountNumber,
+			$transactionReference
 		);
 		
     }
