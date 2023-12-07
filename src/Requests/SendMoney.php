@@ -135,16 +135,14 @@ class SendMoney extends SasaPayClient
         string $networkCode,
         string $receiverNumber
     ): mixed {
-        
-		return SendMoney::transfer(
-			$transactionDesc,
-			$senderNumber,
-			$amount,
-			$reason,
-			$networkCode,
-			$receiverNumber
-		);
-
+        return SendMoney::transfer(
+            $transactionDesc,
+            $senderNumber,
+            $amount,
+            $reason,
+            $networkCode,
+            $receiverNumber
+        );
     }
 
     /**
@@ -171,16 +169,14 @@ class SendMoney extends SasaPayClient
         string $bankCode,
         string $accountNumber
     ): mixed {
-        
-		return SendMoney::transfer(
-			$transactionDesc,
-			$senderNumber,
-			$amount,
-			$reason,
-			$bankCode,
-			$accountNumber
-		);
-		
+        return SendMoney::transfer(
+            $transactionDesc,
+            $senderNumber,
+            $amount,
+            $reason,
+            $bankCode,
+            $accountNumber
+        );
     }
 
     /**
