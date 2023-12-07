@@ -114,13 +114,13 @@ class SendMoney extends SasaPayClient
     /**
      * Transfer funds to mobile wallets.
      *
-     * @param string      $transactionDesc
-     * @param string      $senderNumber
-     * @param int         $amount
-     * @param string      $reason
-     * @param string      $networkCode
-     * @param string      $receiverNumber
-     * @param string      $transactionReference
+     * @param string $transactionDesc
+     * @param string $senderNumber
+     * @param int    $amount
+     * @param string $reason
+     * @param string $networkCode
+     * @param string $receiverNumber
+     * @param string $transactionReference
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      *
@@ -135,29 +135,27 @@ class SendMoney extends SasaPayClient
         string $receiverNumber,
         string $transactionReference
     ): mixed {
-        
-		return SendMoney::transfer(
-			$transactionDesc,
-			$senderNumber,
-			$amount,
-			$reason,
-			$networkCode,
-			$receiverNumber,
+        return SendMoney::transfer(
+            $transactionDesc,
+            $senderNumber,
+            $amount,
+            $reason,
+            $networkCode,
+            $receiverNumber,
             $transactionReference
-		);
-		
+        );
     }
 
     /**
      * Transfer funds to bank accounts.
      *
-     * @param string      $transactionDesc
-     * @param string      $senderNumber
-     * @param int         $amount
-     * @param string      $reason
-     * @param string      $bankCode
-     * @param string      $accountNumber
-     * @param string      $transactionReference
+     * @param string $transactionDesc
+     * @param string $senderNumber
+     * @param int    $amount
+     * @param string $reason
+     * @param string $bankCode
+     * @param string $accountNumber
+     * @param string $transactionReference
      *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      *
@@ -172,17 +170,15 @@ class SendMoney extends SasaPayClient
         string $accountNumber,
         string $transactionReference
     ): mixed {
-        
-		return SendMoney::transfer(
-			$transactionDesc,
-			$senderNumber,
-			$amount,
-			$reason,
-			$bankCode,
-			$accountNumber,
-			$transactionReference
-		);
-		
+        return SendMoney::transfer(
+            $transactionDesc,
+            $senderNumber,
+            $amount,
+            $reason,
+            $bankCode,
+            $accountNumber,
+            $transactionReference
+        );
     }
 
     /**
