@@ -184,7 +184,7 @@ class SasaPayClient
             throw new SasaPayRequestException('SasaPay APIs: '
                 .$response->errorMessage, $e->getCode());
         } catch (GuzzleException $e) {
-            throw new SasaPayRequestException('SasaPay APIs: ' .$e->getMessage(), $e->getCode());
+            throw new SasaPayRequestException('SasaPay APIs: '.$e->getMessage(), $e->getCode());
         }
     }
 }

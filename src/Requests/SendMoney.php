@@ -112,7 +112,7 @@ class SendMoney extends SasaPayClient
     }
 
     /**
-     * Transfer funds to mobile wallets
+     * Transfer funds to mobile wallets.
      *
      * @param string      $transactionDesc
      * @param string      $senderNumber
@@ -148,11 +148,11 @@ class SendMoney extends SasaPayClient
 			$transactionReference,
 			$transactionFee
 		);
-		
+
     }
 
     /**
-     * Transfer funds to bank accounts
+     * Transfer funds to bank accounts.
      *
      * @param string      $transactionDesc
      * @param string      $senderNumber
@@ -167,7 +167,7 @@ class SendMoney extends SasaPayClient
      *
      * @return mixed
      */
-    public function sendToMobile(
+    public function sendToBank(
         string $transactionDesc,
         string $senderNumber,
         int $amount,
