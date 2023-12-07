@@ -133,9 +133,7 @@ class SendMoney extends SasaPayClient
         int $amount,
         string $reason,
         string $networkCode,
-        string $receiverNumber,
-        string $transactionReference = null,
-        int $transactionFee = 0
+        string $receiverNumber
     ): mixed {
         
 		return SendMoney::transfer(
@@ -144,9 +142,7 @@ class SendMoney extends SasaPayClient
 			$amount,
 			$reason,
 			$networkCode,
-			$receiverNumber,
-			$transactionReference,
-			$transactionFee
+			$receiverNumber
 		);
 
     }
@@ -173,9 +169,7 @@ class SendMoney extends SasaPayClient
         int $amount,
         string $reason,
         string $bankCode,
-        string $accountNumber,
-        string $transactionReference = null,
-        int $transactionFee = 0
+        string $accountNumber
     ): mixed {
         
 		return SendMoney::transfer(
@@ -184,9 +178,7 @@ class SendMoney extends SasaPayClient
 			$amount,
 			$reason,
 			$bankCode,
-			$accountNumber,
-			$transactionReference = null,
-			$transactionFee = 0
+			$accountNumber
 		);
 		
     }
