@@ -60,7 +60,7 @@ class UtilityPayment extends SasaPayClient
         $accountNumber,
         $accountReference,
         $transactionFee = 0
-    ): mixed {
+    ): SasaPayTransaction {
         $transactionRef = (string) Str::uuid();
 
         $payment = SasaPayTransaction::create([
@@ -72,8 +72,6 @@ class UtilityPayment extends SasaPayClient
             'account_reference'     => $accountReference,
             'transaction_fee'       => $transactionFee,
         ]);
-
-        $id = $payment->id;
 
         $parameters = [
             'merchantCode'         => $this->merchantCode,
@@ -104,7 +102,7 @@ class UtilityPayment extends SasaPayClient
 
         $payment->update($data);
 
-        return $response;
+        return $payment;
     }
 
     /**

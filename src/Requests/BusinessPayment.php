@@ -60,7 +60,7 @@ class BusinessPayment extends SasaPayClient
         string $networkCode,
         string $reason,
         int $transactionFee = 0
-    ): mixed {
+    ): SasaPayTransaction {
         $transactionRef = (string) Str::uuid();
 
         $payment = SasaPayTransaction::create([
@@ -76,7 +76,6 @@ class BusinessPayment extends SasaPayClient
             'reason'                 => $reason,
         ]);
 
-        $id = $payment->id;
 
         $parameters = [
             'merchantCode'         => $this->merchantCode,
@@ -110,7 +109,7 @@ class BusinessPayment extends SasaPayClient
 
         $payment->update($data);
 
-        return $response;
+        return $payment;
     }
 
     /**

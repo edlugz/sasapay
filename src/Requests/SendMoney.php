@@ -59,7 +59,7 @@ class SendMoney extends SasaPayClient
         string $receiverNumber,
         string $transactionReference = null,
         int $transactionFee = 0
-    ): mixed {
+    ): SasaPayTransaction {
         $transactionRef = empty($transactionReference) ? (string) Str::uuid() : $transactionReference;
 
         $payment = SasaPayTransaction::create([
@@ -73,8 +73,6 @@ class SendMoney extends SasaPayClient
             'channel'               => $channel,
             'receiver_number'       => $receiverNumber,
         ]);
-
-        $id = $payment->id;
 
         $parameters = [
             'merchantCode'         => $this->merchantCode,
@@ -108,7 +106,7 @@ class SendMoney extends SasaPayClient
 
         $payment->update($data);
 
-        return $response;
+        return $payment;
     }
 
     /**
@@ -134,7 +132,7 @@ class SendMoney extends SasaPayClient
         string $networkCode,
         string $receiverNumber,
         string $transactionReference
-    ): mixed {
+    ): SasaPayTransaction {
         return SendMoney::transfer(
             $transactionDesc,
             $senderNumber,
@@ -169,7 +167,7 @@ class SendMoney extends SasaPayClient
         string $bankCode,
         string $accountNumber,
         string $transactionReference
-    ): mixed {
+    ): SasaPayTransaction {
         return SendMoney::transfer(
             $transactionDesc,
             $senderNumber,
