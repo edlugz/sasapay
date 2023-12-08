@@ -185,11 +185,12 @@ class SendMoney extends SasaPayClient
      * Process results for send money function.
      *
      * @param \Illuminate\Http\Request $request
+     * @return \EdLugz\SasaPay\Models\SasaPayTransaction
      */
-    public function sendMoneyResult(Request $request): void
+    public function sendMoneyResult(Request $request): SasaPayTransaction
     {
-        SasaPayTransaction::where('checkout_request_id', $request->input('CheckoutRequestID'))
-        ->update([
+        $transaction = SasaPayTransaction::where('checkout_request_id', $request->input('CheckoutRequestID'))->first();
+        $transaction->update([
             'result_code'                    => $request->input('ResultCode'),
             'result_desc'                    => $request->input('ResultDesc'),
             'merchant_account_balance'       => $request->input('MerchantAccountBalance'),
@@ -202,5 +203,7 @@ class SendMoney extends SasaPayClient
             'recipient_name'                 => $request->input('RecipientName'),
             'sender_account_number'          => $request->input('SenderAccountNumber'),
         ]);
+
+        return $transaction;
     }
 }

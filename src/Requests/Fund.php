@@ -136,11 +136,14 @@ class Fund extends SasaPayClient
      * Process a fund results.
      *
      * @param \Illuminate\Http\Request $request
+     * @return \EdLugz\SasaPay\Models\SasaPayFunding
      */
-    public function fundingResult(Request $request): void
+    public function fundingResult(Request $request) : SasaPayFunding
     {
-        SasaPayFunding::where('checkout_request_id', $request->input('CheckoutRequestID'))
-        ->update([
+
+        $funding = SasaPayFunding::where('checkout_request_id', $request->input('CheckoutRequestID'))->first();
+
+        $funding->update([
             'payment_request_id'   => $request->input('PaymentRequestID'),
             'result_code'          => $request->input('ResultCode'),
             'result_description'   => $request->input('ResultDesc'),
@@ -150,5 +153,7 @@ class Fund extends SasaPayClient
             'transaction_code'     => $request->input('TransactionCode'),
             'third_party_trans_id' => $request->input('ThirdPartyTransID'),
         ]);
+
+        return $funding;
     }
 }
