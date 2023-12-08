@@ -2,7 +2,6 @@
 
 namespace EdLugz\SasaPay;
 
-use EdLugz\SasaPay\Helpers\SasaPayHelper;
 use Illuminate\Support\ServiceProvider;
 
 class SasaPayServiceProvider extends ServiceProvider
