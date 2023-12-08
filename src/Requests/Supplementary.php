@@ -148,12 +148,12 @@ class Supplementary extends SasaPayClient
 		$telkom = '/(?:0)?(77[0-9][0-9]{6})/';
 		if(preg_match($safaricom, $mobileNumber)){
 			return '63902';
-		}
-		if(preg_match($airtel, $mobileNumber)){
+		} elseif(preg_match($airtel, $mobileNumber)){
 			return '63903';
-		}
-		if(preg_match($telkom, $mobileNumber)){
+		} elseif(preg_match($telkom, $mobileNumber)){
 			return '63907';
+		} else {
+			return '0';
 		}
     }
 }
