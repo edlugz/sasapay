@@ -2,6 +2,7 @@
 
 namespace EdLugz\SasaPay;
 
+use EdLugz\SasaPay\Helpers\SasaPayHelper;
 use EdLugz\SasaPay\Requests\Balance;
 use EdLugz\SasaPay\Requests\BusinessOnboarding;
 use EdLugz\SasaPay\Requests\BusinessPayment;
@@ -21,7 +22,7 @@ class SasaPay
      *
      * @return Balance
      */
-    public function balance()
+    public function balance(): Balance
     {
         return new Balance();
     }
@@ -31,7 +32,7 @@ class SasaPay
      *
      * @return BusinessOnboarding
      */
-    public function businessOnboarding()
+    public function businessOnboarding(): BusinessOnboarding
     {
         return new BusinessOnboarding();
     }
@@ -41,7 +42,7 @@ class SasaPay
      *
      * @return BusinessPayment
      */
-    public function businessPayment()
+    public function businessPayment(): BusinessPayment
     {
         return new BusinessPayment();
     }
@@ -51,7 +52,7 @@ class SasaPay
      *
      * @return Customer
      */
-    public function customer()
+    public function customer(): Customer
     {
         return new Customer();
     }
@@ -61,7 +62,7 @@ class SasaPay
      *
      * @return Fund
      */
-    public function fund()
+    public function fund(): Fund
     {
         return new Fund();
     }
@@ -71,7 +72,7 @@ class SasaPay
      *
      * @return PersonalOnboarding
      */
-    public function personalOnboarding()
+    public function personalOnboarding(): PersonalOnboarding
     {
         return new PersonalOnboarding();
     }
@@ -81,7 +82,7 @@ class SasaPay
      *
      * @return SendMoney
      */
-    public function sendMoney()
+    public function sendMoney(): SendMoney
     {
         return new SendMoney();
     }
@@ -91,7 +92,7 @@ class SasaPay
      *
      * @return Statement
      */
-    public function statement()
+    public function statement(): Statement
     {
         return new Statement();
     }
@@ -101,7 +102,7 @@ class SasaPay
      *
      * @return Supplementary
      */
-    public function supplementary()
+    public function supplementary(): Supplementary
     {
         return new Supplementary();
     }
@@ -111,7 +112,7 @@ class SasaPay
      *
      * @return Transaction
      */
-    public function transaction()
+    public function transaction(): Transaction
     {
         return new Transaction();
     }
@@ -121,9 +122,14 @@ class SasaPay
      *
      * @return UtilityPayment
      */
-    public function utilityPayment()
+    public function utilityPayment(): UtilityPayment
     {
         return new UtilityPayment();
+    }
+
+    public function helper(): SasaPayHelper
+    {
+        return new SasaPayHelper();
     }
 
 
