@@ -4,7 +4,7 @@
  * Filename: SasaPayHelper.php
  * User: henriquedn
  * Email: henrydkm@gmail.com
- * Datetime: 08/12/2023 Dec 2023 at 21:53
+ * Datetime: 08/12/2023 Dec 2023 at 21:53.
  */
 
 namespace EdLugz\SasaPay\Helpers;

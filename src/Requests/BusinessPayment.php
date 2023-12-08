@@ -76,7 +76,6 @@ class BusinessPayment extends SasaPayClient
             'reason'                 => $reason,
         ]);
 
-
         $parameters = [
             'merchantCode'         => $this->merchantCode,
             'transactionReference' => $transactionRef,
@@ -116,6 +115,7 @@ class BusinessPayment extends SasaPayClient
      * Process results for send money function.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \EdLugz\SasaPay\Models\SasaPayTransaction
      */
     public function businessPaymentResult(Request $request): SasaPayTransaction

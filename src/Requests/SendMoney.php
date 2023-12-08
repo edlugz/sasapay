@@ -183,6 +183,7 @@ class SendMoney extends SasaPayClient
      * Process results for send money function.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \EdLugz\SasaPay\Models\SasaPayTransaction
      */
     public function sendMoneyResult(Request $request): SasaPayTransaction
