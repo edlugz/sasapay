@@ -132,11 +132,11 @@ class UtilityPayment extends SasaPayClient
      * Process results for pay utilities function.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \EdLugz\SasaPay\Models\SasaPayTransaction
      */
     public function utilityResult(Request $request): SasaPayTransaction
     {
-
         $transaction = SasaPayTransaction::where('checkout_request_id', $request->input('CheckoutRequestID'))->first();
 
         $transaction->update([
