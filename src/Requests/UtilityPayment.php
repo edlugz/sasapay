@@ -2,9 +2,9 @@
 
 namespace EdLugz\SasaPay\Requests;
 
+use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
 use EdLugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
-use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -45,14 +45,16 @@ class UtilityPayment extends SasaPayClient
     /**
      * pay utilities including airtime purchase, electricity payments, water payment and tv payments.
      *
-     * @param     $amount
-     * @param     $payerAccountNumber
-     * @param     $accountNumber
-     * @param     $accountReference
-     * @param int $transactionFee
+     * @param       $amount
+     * @param       $payerAccountNumber
+     * @param       $accountNumber
+     * @param       $accountReference
+     * @param int   $transactionFee
      * @param array $customFieldsKeyValue
-     * @return mixed
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     public function payUtility(
         $amount,
@@ -72,7 +74,7 @@ class UtilityPayment extends SasaPayClient
             'account_number'        => $accountNumber,
             'account_reference'     => $accountReference,
             'transaction_fee'       => $transactionFee,
-        ],$customFieldsKeyValue));
+        ], $customFieldsKeyValue));
 
         $parameters = [
             'merchantCode'         => $this->merchantCode,
@@ -85,20 +87,16 @@ class UtilityPayment extends SasaPayClient
             'transactionFee'       => $transactionFee,
             'callbackUrl'          => $this->resultURL,
         ];
-		
-		try {
 
-			$response = $this->call($this->payEndPoint, ['json' => $parameters]);
-		
-		} catch(SasaPayRequestException $e) {
-			
-			$response = json_encode([
-				'status' => false,
-				'responseCode'  => $e->getCode(),
-				'message'        => $e->getMessage(),
-			]);
-
-		}
+        try {
+            $response = $this->call($this->payEndPoint, ['json' => $parameters]);
+        } catch(SasaPayRequestException $e) {
+            $response = json_encode([
+                'status'         => false,
+                'responseCode'   => $e->getCode(),
+                'message'        => $e->getMessage(),
+            ]);
+        }
 
         $data = [
             'request_status'      => $response->status,
