@@ -177,12 +177,12 @@ class SasaPayClient
                 throw new SasaPayRequestException($message, $e->getCode());
             }
 
-            throw new SasaPayRequestException('SasaPay APIs: '.$response->errorMessage, $e->getCode());
+            throw new SasaPayRequestException('SasaPay APIs: '.$response->message, $e->getCode());
         } catch (ClientException $e) {
             $response = json_decode($e->getResponse()->getBody()->getContents());
 
             throw new SasaPayRequestException('SasaPay APIs: '
-                .$response->errorMessage, $e->getCode());
+                .$response->message, $e->getCode());
         } catch (GuzzleException $e) {
             throw new SasaPayRequestException('SasaPay APIs: '.$e->getMessage(), $e->getCode());
         }
