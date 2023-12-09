@@ -2,9 +2,9 @@
 
 namespace EdLugz\SasaPay\Requests;
 
+use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
 use EdLugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
-use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -39,17 +39,19 @@ class BusinessPayment extends SasaPayClient
      * Transfer funds to mobile wallets or bank accounts.
      *
      *
-     * @param int $amount
+     * @param int    $amount
      * @param string $senderAccountNumber
      * @param string $receiverMerchantCode
      * @param string $accountReference
      * @param string $billerType
      * @param string $networkCode
      * @param string $reason
-     * @param int $transactionFee
-     * @param array $customFieldsKeyValue Custom Database Columns added to your sasa_pay_transaction published migrations
-     * @return mixed
+     * @param int    $transactionFee
+     * @param array  $customFieldsKeyValue Custom Database Columns added to your sasa_pay_transaction published migrations
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     public function lipa(
         int $amount,
@@ -91,20 +93,16 @@ class BusinessPayment extends SasaPayClient
             'callbackUrl'          => $this->resultURL,
             'reason'               => $reason,
         ];
-		
-		try {
 
-			$response = $this->call($this->endPoint, ['json' => $parameters]);
-		
-		} catch(SasaPayRequestException $e) {
-			
-			$response = json_encode([
-				'status' => false,
-				'responseCode'  => $e->getCode(),
-				'message'        => $e->getMessage(),
-			]);
-
-		}
+        try {
+            $response = $this->call($this->endPoint, ['json' => $parameters]);
+        } catch(SasaPayRequestException $e) {
+            $response = json_encode([
+                'status'         => false,
+                'responseCode'   => $e->getCode(),
+                'message'        => $e->getMessage(),
+            ]);
+        }
 
         $data = [
             'request_status'      => $response->status,

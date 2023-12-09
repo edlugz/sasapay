@@ -2,9 +2,9 @@
 
 namespace EdLugz\SasaPay\Requests;
 
+use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
 use EdLugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
-use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -40,14 +40,16 @@ class SendMoney extends SasaPayClient
      *
      * @param string $transactionDesc
      * @param string $senderNumber
-     * @param int $amount
+     * @param int    $amount
      * @param string $reason
      * @param string $channel
      * @param string $receiverNumber
-     * @param int $transactionFee
-     * @param array $customFieldsKeyValue
-     * @return mixed
+     * @param int    $transactionFee
+     * @param array  $customFieldsKeyValue
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     private function transfer(
         string $transactionDesc,
@@ -59,7 +61,7 @@ class SendMoney extends SasaPayClient
         int $transactionFee = 0,
         array $customFieldsKeyValue = [],
     ): SasaPayTransaction {
-        $transactionRef =  (string) Str::uuid();
+        $transactionRef = (string) Str::uuid();
 
         /** @var SasaPayTransaction $payment */
         $payment = SasaPayTransaction::create(array_merge([
@@ -87,20 +89,16 @@ class SendMoney extends SasaPayClient
             'receiverNumber'       => $receiverNumber,
             'callbackUrl'          => $this->resultURL,
         ];
-		
-		try {
 
-			$response = $this->call($this->endPoint, ['json' => $parameters]);
-		
-		} catch(SasaPayRequestException $e) {
-			
-			$response = json_encode([
-				'status' => false,
-				'responseCode'  => $e->getCode(),
-				'message'        => $e->getMessage(),
-			]);
-			
-		}
+        try {
+            $response = $this->call($this->endPoint, ['json' => $parameters]);
+        } catch(SasaPayRequestException $e) {
+            $response = json_encode([
+                'status'         => false,
+                'responseCode'   => $e->getCode(),
+                'message'        => $e->getMessage(),
+            ]);
+        }
 
         $data = [
             'request_status'      => $response->status,
@@ -110,9 +108,9 @@ class SendMoney extends SasaPayClient
 
         if ($response->status) {
             $data = array_merge($data, [
-                'checkout_request_id' => $response->checkoutRequestId,
-                'merchant_reference' => $response->merchantReference,
-                'transaction_charges'  => $response->transactionCharges				
+                'checkout_request_id'  => $response->checkoutRequestId,
+                'merchant_reference'   => $response->merchantReference,
+                'transaction_charges'  => $response->transactionCharges,
             ]);
         }
 
@@ -126,13 +124,15 @@ class SendMoney extends SasaPayClient
      *
      * @param string $transactionDesc
      * @param string $senderNumber
-     * @param int $amount
+     * @param int    $amount
      * @param string $reason
      * @param string $networkCode
      * @param string $receiverNumber
-     * @param array $customFieldsKeyValue
-     * @return SasaPayTransaction
+     * @param array  $customFieldsKeyValue
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return SasaPayTransaction
      */
     public function sendToMobile(
         string $transactionDesc,
@@ -159,13 +159,15 @@ class SendMoney extends SasaPayClient
      *
      * @param string $transactionDesc
      * @param string $senderNumber
-     * @param int $amount
+     * @param int    $amount
      * @param string $reason
      * @param string $bankCode
      * @param string $accountNumber
-     * @param array $customFieldsKeyValue
-     * @return mixed
+     * @param array  $customFieldsKeyValue
+     *
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     *
+     * @return mixed
      */
     public function sendToBank(
         string $transactionDesc,
