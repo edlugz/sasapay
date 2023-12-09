@@ -4,6 +4,7 @@ namespace EdLugz\SasaPay\Requests;
 
 use EdLugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
+use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -86,8 +87,20 @@ class SendMoney extends SasaPayClient
             'receiverNumber'       => $receiverNumber,
             'callbackUrl'          => $this->resultURL,
         ];
+		
+		try {
 
-        $response = $this->call($this->endPoint, ['json' => $parameters]);
+			$response = $this->call($this->endPoint, ['json' => $parameters]);
+		
+		} catch(SasaPayRequestException $e) {
+			
+			$response = json_encode([
+				'status' => false,
+				'responseCode'  => $e->getCode(),
+				'message'        => $e->getMessage(),
+			]);
+			
+		}
 
         $data = [
             'request_status'      => $response->status,
