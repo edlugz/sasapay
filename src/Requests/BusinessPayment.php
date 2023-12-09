@@ -38,18 +38,17 @@ class BusinessPayment extends SasaPayClient
      * Transfer funds to mobile wallets or bank accounts.
      *
      *
-     * @param int    $amount
+     * @param int $amount
      * @param string $senderAccountNumber
      * @param string $receiverMerchantCode
      * @param string $accountReference
      * @param string $billerType
      * @param string $networkCode
      * @param string $reason
-     * @param int    $transactionFee
-     *
-     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
-     *
+     * @param int $transactionFee
+     * @param array $customFieldsKeyValue Custom Database Columns added to your sasa_pay_transaction published migrations
      * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     public function lipa(
         int $amount,
@@ -59,11 +58,12 @@ class BusinessPayment extends SasaPayClient
         string $billerType,
         string $networkCode,
         string $reason,
-        int $transactionFee = 0
+        int $transactionFee = 0,
+        array $customFieldsKeyValue = [],
     ): SasaPayTransaction {
         $transactionRef = (string) Str::uuid();
 
-        $payment = SasaPayTransaction::create([
+        $payment = SasaPayTransaction::create(array_merge([
             'transaction_reference'  => $transactionRef,
             'currency_code'          => 'KES',
             'amount'                 => $amount,
@@ -74,7 +74,7 @@ class BusinessPayment extends SasaPayClient
             'biller_type'            => $billerType,
             'network_code'           => $networkCode,
             'reason'                 => $reason,
-        ]);
+        ], $customFieldsKeyValue));
 
         $parameters = [
             'merchantCode'         => $this->merchantCode,
@@ -101,8 +101,8 @@ class BusinessPayment extends SasaPayClient
 
         if ($response->status) {
             $data = array_merge($data, [
-                'checkout_request_id' => $response->checkoutRequestID,
-                'transaction_charge'  => $response->transactionCharges,
+                'checkout_request_id' => $response->checkoutRequestId,
+                'merchant_reference'  => $response->merchantReference,
             ]);
         }
 

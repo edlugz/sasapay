@@ -49,21 +49,21 @@ class UtilityPayment extends SasaPayClient
      * @param     $accountNumber
      * @param     $accountReference
      * @param int $transactionFee
-     *
-     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
-     *
+     * @param array $customFieldsKeyValue
      * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     public function payUtility(
         $amount,
         $payerAccountNumber,
         $accountNumber,
         $accountReference,
-        $transactionFee = 0
+        $transactionFee = 0,
+        array $customFieldsKeyValue = [],
     ): SasaPayTransaction {
         $transactionRef = (string) Str::uuid();
 
-        $payment = SasaPayTransaction::create([
+        $payment = SasaPayTransaction::create(array_merge([
             'transaction_reference' => $transactionRef,
             'currency_code'         => 'KES',
             'amount'                => $amount,
@@ -71,7 +71,7 @@ class UtilityPayment extends SasaPayClient
             'account_number'        => $accountNumber,
             'account_reference'     => $accountReference,
             'transaction_fee'       => $transactionFee,
-        ]);
+        ],$customFieldsKeyValue));
 
         $parameters = [
             'merchantCode'         => $this->merchantCode,
@@ -95,8 +95,8 @@ class UtilityPayment extends SasaPayClient
 
         if ($response->status) {
             $data = array_merge($data, [
-                'checkout_request_id' => $response->checkoutRequestID,
-                'merchant_reference'  => $response->transactionCharges,
+                'checkout_request_id' => $response->checkoutRequestId,
+                'merchant_reference'  => $response->merchantReference,
             ]);
         }
 

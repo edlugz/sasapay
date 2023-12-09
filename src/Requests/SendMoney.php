@@ -37,18 +37,16 @@ class SendMoney extends SasaPayClient
     /**
      * Transfer funds to mobile wallets or bank accounts.
      *
-     * @param string      $transactionDesc
-     * @param string      $senderNumber
-     * @param int         $amount
-     * @param string      $reason
-     * @param string      $channel
-     * @param string      $receiverNumber
-     * @param string|null $transactionReference
-     * @param int         $transactionFee
-     *
-     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
-     *
+     * @param string $transactionDesc
+     * @param string $senderNumber
+     * @param int $amount
+     * @param string $reason
+     * @param string $channel
+     * @param string $receiverNumber
+     * @param int $transactionFee
+     * @param array $customFieldsKeyValue
      * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     private function transfer(
         string $transactionDesc,
@@ -57,12 +55,13 @@ class SendMoney extends SasaPayClient
         string $reason,
         string $channel,
         string $receiverNumber,
-        string $transactionReference = null,
-        int $transactionFee = 0
+        int $transactionFee = 0,
+        array $customFieldsKeyValue = [],
     ): SasaPayTransaction {
-        $transactionRef = empty($transactionReference) ? (string) Str::uuid() : $transactionReference;
+        $transactionRef =  (string) Str::uuid();
 
-        $payment = SasaPayTransaction::create([
+        /** @var SasaPayTransaction $payment */
+        $payment = SasaPayTransaction::create(array_merge([
             'transaction_reference' => $transactionRef,
             'currency_code'         => 'KES',
             'transaction_desc'      => $transactionDesc,
@@ -72,7 +71,7 @@ class SendMoney extends SasaPayClient
             'transaction_fee'       => $transactionFee,
             'channel'               => $channel,
             'receiver_number'       => $receiverNumber,
-        ]);
+        ], $customFieldsKeyValue));
 
         $parameters = [
             'merchantCode'         => $this->merchantCode,
@@ -114,15 +113,13 @@ class SendMoney extends SasaPayClient
      *
      * @param string $transactionDesc
      * @param string $senderNumber
-     * @param int    $amount
+     * @param int $amount
      * @param string $reason
      * @param string $networkCode
      * @param string $receiverNumber
-     * @param string $transactionReference
-     *
+     * @param array $customFieldsKeyValue
+     * @return SasaPayTransaction
      * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
-     *
-     * @return mixed
      */
     public function sendToMobile(
         string $transactionDesc,
@@ -131,16 +128,16 @@ class SendMoney extends SasaPayClient
         string $reason,
         string $networkCode,
         string $receiverNumber,
-        string $transactionReference
+        array $customFieldsKeyValue = [],
     ): SasaPayTransaction {
         return SendMoney::transfer(
-            $transactionDesc,
-            $senderNumber,
-            $amount,
-            $reason,
-            $networkCode,
-            $receiverNumber,
-            $transactionReference
+            transactionDesc: $transactionDesc,
+            senderNumber: $senderNumber,
+            amount: $amount,
+            reason: $reason,
+            channel: $networkCode,
+            receiverNumber: $receiverNumber,
+            customFieldsKeyValue: $customFieldsKeyValue,
         );
     }
 
@@ -149,15 +146,13 @@ class SendMoney extends SasaPayClient
      *
      * @param string $transactionDesc
      * @param string $senderNumber
-     * @param int    $amount
+     * @param int $amount
      * @param string $reason
      * @param string $bankCode
      * @param string $accountNumber
-     * @param string $transactionReference
-     *
-     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
-     *
+     * @param array $customFieldsKeyValue
      * @return mixed
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      */
     public function sendToBank(
         string $transactionDesc,
@@ -166,16 +161,16 @@ class SendMoney extends SasaPayClient
         string $reason,
         string $bankCode,
         string $accountNumber,
-        string $transactionReference
+        array $customFieldsKeyValue = [],
     ): SasaPayTransaction {
         return SendMoney::transfer(
-            $transactionDesc,
-            $senderNumber,
-            $amount,
-            $reason,
-            $bankCode,
-            $accountNumber,
-            $transactionReference
+            transactionDesc: $transactionDesc,
+            senderNumber: $senderNumber,
+            amount: $amount,
+            reason: $reason,
+            channel: $bankCode,
+            receiverNumber: $accountNumber,
+            customFieldsKeyValue: $customFieldsKeyValue
         );
     }
 
