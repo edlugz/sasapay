@@ -98,9 +98,9 @@ class SendMoney extends SasaPayClient
 
         if ($response->status) {
             $data = array_merge($data, [
-                'checkout_request_id' => $response->checkoutRequestID,
-                'transaction_charges' => $response->merchantReference,
-                'merchant_reference'  => $response->transactionCharges,
+                'checkout_request_id' => $response->checkoutRequestId,
+                'merchant_reference' => $response->merchantReference,
+                'transaction_charges'  => $response->transactionCharges				
             ]);
         }
 
