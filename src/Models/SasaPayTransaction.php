@@ -50,6 +50,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $sasapay_transaction_id         The ID of the SasaPay transaction.
  * @property string $recipient_name                 The name of the recipient.
  * @property string $sender_account_number          The account number of the sender.
+ * @property string $third_party_transaction_code   The third party transaction code.
  */
 class SasaPayTransaction extends Model
 {
@@ -92,5 +93,6 @@ class SasaPayTransaction extends Model
         'sasapay_transaction_id',
         'recipient_name',
         'sender_account_number',
+        'third_party_transaction_code',
     ];
 }

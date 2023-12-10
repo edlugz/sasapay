@@ -10,7 +10,7 @@ return new class() extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sasapay_transactions', function (Blueprint $table) {
+        Schema::create('sasa_pay_transactions', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id');
@@ -50,6 +50,7 @@ return new class() extends Migration {
             $table->string('sasapay_transaction_id')->nullable();
             $table->string('recipient_name')->nullable();
             $table->string('sender_account_number')->nullable();
+            $table->string('third_party_transaction_code')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

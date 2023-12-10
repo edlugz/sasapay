@@ -10,7 +10,7 @@ return new class() extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sasapay_funding', function (Blueprint $table) {
+        Schema::create('sasa_pay_fundings', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id');
