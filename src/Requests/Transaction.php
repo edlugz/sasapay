@@ -30,9 +30,9 @@ class Transaction extends SasaPayClient
      * @param $merchantTransactionReference
      * @param $transactionCode
      *
-     * @return \Illuminate\Http\JsonResponse
-     *@throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function check($checkoutRequestId, $merchantTransactionReference, $transactionCode): JsonResponse
     {
