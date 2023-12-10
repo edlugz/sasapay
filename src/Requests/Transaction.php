@@ -2,7 +2,10 @@
 
 namespace EdLugz\SasaPay\Requests;
 
+use EdLugz\SasaPay\Exceptions\SasaPayRequestException;
+use EdLugz\SasaPay\Models\SasaPayTransaction;
 use EdLugz\SasaPay\SasaPayClient;
+use Illuminate\Http\JsonResponse;
 
 class Transaction extends SasaPayClient
 {
@@ -27,11 +30,11 @@ class Transaction extends SasaPayClient
      * @param $merchantTransactionReference
      * @param $transactionCode
      *
-     * @throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
+     * @return \Illuminate\Http\JsonResponse
+     *@throws \EdLugz\SasaPay\Exceptions\SasaPayRequestException
      *
-     * @return mixed
      */
-    public function check($checkoutRequestId, $merchantTransactionReference, $transactionCode): mixed
+    public function check($checkoutRequestId, $merchantTransactionReference, $transactionCode): JsonResponse
     {
         $payment = SasaPayTransaction::where('checkout_request_id', $checkoutRequestId)->first();
 
