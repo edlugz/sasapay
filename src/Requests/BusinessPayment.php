@@ -102,8 +102,8 @@ class BusinessPayment extends SasaPayClient
                 'responseCode'   => $e->getCode(),
                 'message'        => $e->getMessage(),
             ];
-			
-			$response = (object) $response;
+
+            $response = (object) $response;
         }
 
         $data = [
