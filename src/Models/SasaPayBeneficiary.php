@@ -12,5 +12,4 @@ class SasaPayBeneficiary extends Model
     use SoftDeletes;
 
     protected $guarded = [];
-	
 }
