@@ -97,11 +97,13 @@ class BusinessPayment extends SasaPayClient
         try {
             $response = $this->call($this->endPoint, ['json' => $parameters]);
         } catch(SasaPayRequestException $e) {
-            $response = json_encode([
+            $response = [
                 'status'         => false,
                 'responseCode'   => $e->getCode(),
                 'message'        => $e->getMessage(),
-            ]);
+            ];
+			
+			$response = (object) $response;
         }
 
         $data = [
