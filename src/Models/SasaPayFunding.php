@@ -12,5 +12,4 @@ class SasaPayFunding extends Model
     use SoftDeletes;
 
     protected $guarded = [];
-	
 }
