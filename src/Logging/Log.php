@@ -6,6 +6,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use Monolog\Handler\StreamHandler;
+use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 
 class Log
@@ -40,7 +41,7 @@ class Log
         $handler = new Logger(
             'SasaPay',
             [
-                new StreamHandler(storage_path('logs/sasapay.log'), $level),
+                new RotatingFileHandler(storage_path('logs/sasapay.log'), 30, $level),
             ]
         );
 
